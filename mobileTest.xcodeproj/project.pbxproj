@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		9842459E28B503E1006C394B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9842459D28B503E1006C394B /* AppDelegate.swift */; };
 		984245A028B503E1006C394B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9842459F28B503E1006C394B /* SceneDelegate.swift */; };
-		984245A228B503E1006C394B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984245A128B503E1006C394B /* ViewController.swift */; };
-		984245A528B503E1006C394B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 984245A328B503E1006C394B /* Main.storyboard */; };
 		984245A728B503E4006C394B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 984245A628B503E4006C394B /* Assets.xcassets */; };
 		984245AA28B503E4006C394B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 984245A828B503E4006C394B /* LaunchScreen.storyboard */; };
 		984245B528B503E4006C394B /* mobileTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984245B428B503E4006C394B /* mobileTestTests.swift */; };
 		984245BF28B503E4006C394B /* mobileTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984245BE28B503E4006C394B /* mobileTestUITests.swift */; };
 		984245C128B503E4006C394B /* mobileTestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984245C028B503E4006C394B /* mobileTestUITestsLaunchTests.swift */; };
+		984245CE28B50598006C394B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984245CD28B50598006C394B /* HomeViewController.swift */; };
+		984245D028B5065B006C394B /* LaunchViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984245CF28B5065B006C394B /* LaunchViewScreen.swift */; };
+		98DC4C6128B5191000840342 /* Rubik-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */; };
+		98DC4C6328B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +41,6 @@
 		9842459A28B503E1006C394B /* mobileTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mobileTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9842459D28B503E1006C394B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9842459F28B503E1006C394B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		984245A128B503E1006C394B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		984245A428B503E1006C394B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		984245A628B503E4006C394B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		984245A928B503E4006C394B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		984245AB28B503E4006C394B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +49,10 @@
 		984245BA28B503E4006C394B /* mobileTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mobileTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		984245BE28B503E4006C394B /* mobileTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobileTestUITests.swift; sourceTree = "<group>"; };
 		984245C028B503E4006C394B /* mobileTestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mobileTestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		984245CD28B50598006C394B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		984245CF28B5065B006C394B /* LaunchViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewScreen.swift; sourceTree = "<group>"; };
+		98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +103,14 @@
 		9842459C28B503E1006C394B /* mobileTest */ = {
 			isa = PBXGroup;
 			children = (
+				98DC4C5D28B518CE00840342 /* fonts */,
 				9842459D28B503E1006C394B /* AppDelegate.swift */,
 				9842459F28B503E1006C394B /* SceneDelegate.swift */,
-				984245A128B503E1006C394B /* ViewController.swift */,
-				984245A328B503E1006C394B /* Main.storyboard */,
 				984245A628B503E4006C394B /* Assets.xcassets */,
 				984245A828B503E4006C394B /* LaunchScreen.storyboard */,
 				984245AB28B503E4006C394B /* Info.plist */,
+				984245CD28B50598006C394B /* HomeViewController.swift */,
+				984245CF28B5065B006C394B /* LaunchViewScreen.swift */,
 			);
 			path = mobileTest;
 			sourceTree = "<group>";
@@ -125,6 +130,15 @@
 				984245C028B503E4006C394B /* mobileTestUITestsLaunchTests.swift */,
 			);
 			path = mobileTestUITests;
+			sourceTree = "<group>";
+		};
+		98DC4C5D28B518CE00840342 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */,
+				98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,9 +245,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98DC4C6128B5191000840342 /* Rubik-VariableFont_wght.ttf in Resources */,
+				98DC4C6328B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf in Resources */,
 				984245AA28B503E4006C394B /* LaunchScreen.storyboard in Resources */,
 				984245A728B503E4006C394B /* Assets.xcassets in Resources */,
-				984245A528B503E1006C394B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +273,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				984245A228B503E1006C394B /* ViewController.swift in Sources */,
 				9842459E28B503E1006C394B /* AppDelegate.swift in Sources */,
 				984245A028B503E1006C394B /* SceneDelegate.swift in Sources */,
+				984245CE28B50598006C394B /* HomeViewController.swift in Sources */,
+				984245D028B5065B006C394B /* LaunchViewScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +313,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		984245A328B503E1006C394B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				984245A428B503E1006C394B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		984245A828B503E4006C394B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -442,7 +450,6 @@
 				INFOPLIST_FILE = mobileTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -470,7 +477,6 @@
 				INFOPLIST_FILE = mobileTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
