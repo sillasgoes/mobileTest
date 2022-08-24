@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  HomeView.swift
 //  mobileTest
 //
 //  Created by Sillas Santos on 23/08/22.
@@ -8,16 +8,18 @@
 import Foundation
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeView: UIView {
     
     // MARK: - Overrides
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         setupView()
         addConstraints()
-        tableView.delegate = self
-        tableView.dataSource = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
     }
     
     // MARK: - Proprieties Computed
@@ -60,7 +62,6 @@ class HomeViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(systemName: "square.stack.3d.up.fill")
-        view.tintColor = .white
         return view
     }()
     
@@ -68,7 +69,6 @@ class HomeViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(systemName: "bag")
-        view.tintColor = .white
         return view
     }()
     
@@ -76,7 +76,6 @@ class HomeViewController: UIViewController {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(systemName: "checkmark")
-        view.tintColor = .white
         return view
     }()
     
@@ -109,10 +108,25 @@ class HomeViewController: UIViewController {
         view.rowHeight = 100
         return view
     }()
-     
-    lazy var testView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
+
+    private lazy var stackViewButtonAvailable: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.alignment = .trailing
+        view.distribution = .fillProportionally
+        view.spacing = 3
+        view.backgroundColor = MobileTestConstants.colorDefault
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var stackViewButtonAccept: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.alignment = .center
+        view.distribution = .fillProportionally
+        view.spacing = 3
+        view.backgroundColor = MobileTestConstants.colorDefault
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -120,23 +134,25 @@ class HomeViewController: UIViewController {
     // MARK: - Private Funcs
     
     private func setupView(){
-        view.addSubview(backView)
+        addSubview(backView)
         backView.addSubview(navBarView)
         backView.addSubview(tableView)
         navBarView.addSubview(iconMenu)
         navBarView.addSubview(labelRequest)
         navBarView.addSubview(stackViewButtons)
        
-        stackViewButtons.addArrangedSubview(buttonAvailable)
-        stackViewButtons.addArrangedSubview(buttonAccept)
-        stackViewButtons.addSubview(avaiableIcon)
-        stackViewButtons.addSubview(acceptIcon)
+        stackViewButtons.addArrangedSubview(stackViewButtonAvailable)
+        stackViewButtons.addArrangedSubview(stackViewButtonAccept)
+        stackViewButtonAvailable.addArrangedSubview(avaiableIcon)
+        stackViewButtonAvailable.addArrangedSubview(buttonAvailable)
+        stackViewButtonAccept.addArrangedSubview(acceptIcon)
+        stackViewButtonAccept.addArrangedSubview(buttonAccept)
     }
     
     private func addConstraints(){
         NSLayoutConstraint.activate([
-            backView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            backView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            backView.widthAnchor.constraint(equalTo: widthAnchor),
+            backView.heightAnchor.constraint(equalTo: heightAnchor),
             
             navBarView.widthAnchor.constraint(equalTo: backView.widthAnchor),
             navBarView.heightAnchor.constraint(equalTo: backView.heightAnchor, multiplier: 0.2),
@@ -151,7 +167,6 @@ class HomeViewController: UIViewController {
             iconMenu.leadingAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             iconMenu.widthAnchor.constraint(equalToConstant: 30),
             iconMenu.heightAnchor.constraint(equalToConstant: 30),
-           
             
             avaiableIcon.widthAnchor.constraint(equalToConstant: 22),
             avaiableIcon.heightAnchor.constraint(equalToConstant: 22),
@@ -167,19 +182,13 @@ class HomeViewController: UIViewController {
             stackViewButtons.widthAnchor.constraint(equalTo: navBarView.widthAnchor, multiplier: 1),
             stackViewButtons.heightAnchor.constraint(equalTo: navBarView.heightAnchor, multiplier: 0.3),
 
-            avaiableIcon.topAnchor.constraint(equalTo: stackViewButtons.topAnchor, constant: 14),
-            avaiableIcon.leadingAnchor.constraint(equalTo: stackViewButtons.leadingAnchor, constant: 20),
-            
-            acceptIcon.topAnchor.constraint(equalTo: stackViewButtons.topAnchor, constant: 14),
-            acceptIcon.trailingAnchor.constraint(equalTo: stackViewButtons.trailingAnchor, constant: -130),
-            
         ])
     }
     
     // MARK: - Funcs and @objc funcs
     
     @objc func buttonAction(){
-        
+        print("Button Pressed")
     }
     
     func addBottomBorderWithColor(view: UIView, color: UIColor, width: CGFloat) {
@@ -188,23 +197,4 @@ class HomeViewController: UIViewController {
         border.frame = CGRect(x: 0, y: view.frame.height - 20, width: view.frame.size.width, height: width)
         view.layer.addSublayer(border)
     }
-}
-
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-   
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       return 110
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
-                                                 for: indexPath)
-         
-        return cell
-    }
-
 }
