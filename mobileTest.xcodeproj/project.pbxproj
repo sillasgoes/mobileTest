@@ -24,11 +24,12 @@
 		988C739A28B80DAA005714B0 /* leads in Resources */ = {isa = PBXBuildFile; fileRef = 988C739928B80DAA005714B0 /* leads */; };
 		988C739C28B80E6F005714B0 /* Offers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988C739B28B80E6F005714B0 /* Offers.swift */; };
 		988C739E28B80FDC005714B0 /* Leads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988C739D28B80FDC005714B0 /* Leads.swift */; };
+		988C73A128B83549005714B0 /* URLSession+Extends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988C73A028B83549005714B0 /* URLSession+Extends.swift */; };
+		988C73A428B835E6005714B0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988C73A328B835E6005714B0 /* HomeView.swift */; };
 		98C22BB128B66B9E00665341 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C22BB028B66B9E00665341 /* Constants.swift */; };
 		98DC4C6128B5191000840342 /* Rubik-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */; };
 		98DC4C6328B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */; };
 		98DC4C6528B5976A00840342 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DC4C6428B5976A00840342 /* CustomTableViewCell.swift */; };
-		98DC4C6728B5987A00840342 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DC4C6628B5987A00840342 /* HomeView.swift */; };
 		98EEDDBF28B7BA5100ED72AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EEDDBE28B7BA5100ED72AF /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,11 +72,12 @@
 		988C739928B80DAA005714B0 /* leads */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = leads; sourceTree = "<group>"; };
 		988C739B28B80E6F005714B0 /* Offers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offers.swift; sourceTree = "<group>"; };
 		988C739D28B80FDC005714B0 /* Leads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leads.swift; sourceTree = "<group>"; };
+		988C73A028B83549005714B0 /* URLSession+Extends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extends.swift"; sourceTree = "<group>"; };
+		988C73A328B835E6005714B0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		98C22BB028B66B9E00665341 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		98DC4C6428B5976A00840342 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		98DC4C6628B5987A00840342 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		98EEDDBE28B7BA5100ED72AF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +136,7 @@
 				98EEDDB628B7AB9600ED72AF /* Model */,
 				98C22BAF28B66B8900665341 /* Constants */,
 				98DC4C5D28B518CE00840342 /* fonts */,
+				988C73A028B83549005714B0 /* URLSession+Extends.swift */,
 			);
 			path = mobileTest;
 			sourceTree = "<group>";
@@ -157,6 +160,14 @@
 				988C739928B80DAA005714B0 /* leads */,
 			);
 			path = mobileTestUITests;
+			sourceTree = "<group>";
+		};
+		988C73A228B835CF005714B0 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				988C73A328B835E6005714B0 /* HomeView.swift */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		98C22BAF28B66B8900665341 /* Constants */ = {
@@ -197,6 +208,7 @@
 		98EEDDBC28B7B33E00ED72AF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				988C73A228B835CF005714B0 /* Screens */,
 				984245CD28B50598006C394B /* HomeViewController.swift */,
 				988AE12B28B6BBF600F65151 /* AvailableViewController.swift */,
 				988AE12D28B6BC0200F65151 /* AcceptViewController.swift */,
@@ -208,7 +220,6 @@
 		98EEDDBD28B7B59900ED72AF /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				98DC4C6628B5987A00840342 /* HomeView.swift */,
 				984245A828B503E4006C394B /* LaunchScreen.storyboard */,
 				984245A628B503E4006C394B /* Assets.xcassets */,
 				9842459D28B503E1006C394B /* AppDelegate.swift */,
@@ -354,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9842459E28B503E1006C394B /* AppDelegate.swift in Sources */,
+				988C73A428B835E6005714B0 /* HomeView.swift in Sources */,
 				98EEDDBF28B7BA5100ED72AF /* HomeViewModel.swift in Sources */,
 				988C739C28B80E6F005714B0 /* Offers.swift in Sources */,
 				984245A028B503E1006C394B /* SceneDelegate.swift in Sources */,
@@ -361,8 +373,8 @@
 				988AE12C28B6BBF600F65151 /* AvailableViewController.swift in Sources */,
 				988AE12E28B6BC0200F65151 /* AcceptViewController.swift in Sources */,
 				988C739E28B80FDC005714B0 /* Leads.swift in Sources */,
+				988C73A128B83549005714B0 /* URLSession+Extends.swift in Sources */,
 				98C22BB128B66B9E00665341 /* Constants.swift in Sources */,
-				98DC4C6728B5987A00840342 /* HomeView.swift in Sources */,
 				984245CE28B50598006C394B /* HomeViewController.swift in Sources */,
 				988C739628B80B06005714B0 /* Detail.swift in Sources */,
 			);

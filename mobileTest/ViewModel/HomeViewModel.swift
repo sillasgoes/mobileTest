@@ -9,17 +9,31 @@ import Foundation
 
 class HomeViewModel {
     
+    var offer = [Offers]()
     
-    private func makeRequest(){
-        
-        let link = URL(string: "http://testemobile.getninjas.com.br")!
-        
-        let task = URLSession.shared.dataTask(with: link) { (data, urlResponse, error) in
-            
-            print("Response \(String(describing: urlResponse))")
-            print("Error \(String(describing: error))")
-        }
-        task.resume()
-        
+    init() {
+        fetch()
     }
+
+    func fetch() {
+        let url = URL(string: Constants.entryPoint + Constants.typeRequest.offers.rawValue)
+        
+        guard let url = url else { return }
+        
+        URLSession.shared.request(url: url, expecting: [Offers].self
+        ) { [weak self ] result in
+            
+            switch result {
+            case .success(let offers):
+                self?.offer = offers
+            case .failure(let error):
+                print("Error \(error)")
+            }
+        }
+    }
+    
+    var getNumberOfRows: Int {
+        return offer.count
+    }
+    
 }

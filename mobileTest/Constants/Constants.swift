@@ -21,9 +21,20 @@ public struct Constants {
     static let entryPoint = "http://testemobile.getninjas.com.br/"
     
     
-   public enum typeRequest: String {
-        case offer = "offers"
-        case lead = "lead"
+    public enum typeRequest: String, Any {
+        case offers =  "offers"
+        case leads  =   "leads"
+        case offerWithDetail = "offer"
+        case leadWithDetail = "lead"
     }
     
+    public enum Detail {
+        case Yes
+        case No
+    }
+    
+    enum ErrorUrl: Error {
+        case invalidURL
+        case invalidData
+    }
 }
