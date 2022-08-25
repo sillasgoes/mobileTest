@@ -35,8 +35,9 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var name : UILabel = {
         let view = UILabel()
-        view.textColor = MobileTestConstants.colorFontCustomCell
-        view.font = UIFont(name: "Rubik", size: 14)
+        view.textColor = Constants.colorFontCustomCell
+        view.font = UIFont(name: "Rubik",
+                           size: 14)
         view.text = "Buffet Completo - Coffe-Break"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -44,8 +45,8 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var nameOffer : UILabel = {
         let view = UILabel()
-        view.textColor = MobileTestConstants.colorFontCustomCell
-        view.font = MobileTestConstants.fontCustomCell
+        view.textColor = Constants.colorFontCustomCell
+        view.font = Constants.fontCustomCell
         view.text = "Buffet 2"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -53,8 +54,8 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var date : UILabel = {
         let view = UILabel()
-        view.textColor = MobileTestConstants.colorFontCustomCell
-        view.font = MobileTestConstants.fontCustomCell
+        view.textColor = Constants.colorFontCustomCell
+        view.font = Constants.fontCustomCell
         view.text = "31 de Mar"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -62,8 +63,8 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var local : UILabel = {
         let view = UILabel()
-        view.textColor = MobileTestConstants.colorFontCustomCell
-        view.font = MobileTestConstants.fontCustomCell
+        view.textColor = Constants.colorFontCustomCell
+        view.font = Constants.fontCustomCell
         view.text = "Vila Leopoldina"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -112,6 +113,9 @@ class CustomTableViewCell: UITableViewCell {
         contentView.layer.cornerRadius = 15
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.clear.cgColor
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0,
+                                                                     left: 0,
+                                                                     bottom: 10,
+                                                                     right: 0))
    }
 }

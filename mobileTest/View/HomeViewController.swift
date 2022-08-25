@@ -18,6 +18,28 @@ class HomeViewController: UIViewController {
         addConstraints()
         tableView.delegate = self
         tableView.dataSource = self
+        makeRequest()
+    }
+    
+    private func makeRequest(){
+        
+        let link = URL(string: Constants.entryPoint + Constants.typeRequest.lead.rawValue)!
+        
+         URLSession.shared.dataTask(with: link) { (data, response, error) in
+             
+             guard let data = data, error == nil else { return }
+             
+                guard let response = response as? HTTPURLResponse else { return }
+                
+                if response.statusCode == 200 {
+                    do {
+                        let result = try JSONDecoder().decode(Lead.self, from: data)
+                        print("Resultado \(result)")
+                    } catch {
+                        print("Error \(error)")
+                    }
+                }
+         }.resume()
     }
     
     // MARK: - Proprieties Computed
@@ -25,24 +47,24 @@ class HomeViewController: UIViewController {
     private lazy var backView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = MobileTestConstants.colorBackgroud
+        view.backgroundColor = Constants.colorBackgroud
         return view
     }()
     
     lazy var navBarView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = MobileTestConstants.colorDefault
+        view.backgroundColor = Constants.colorDefault
         return view
     }()
-
+    
     private lazy var stackViewButtons: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = .center
         view.distribution = .fillEqually
         view.spacing = 3
-        view.backgroundColor = MobileTestConstants.colorDefault
+        view.backgroundColor = Constants.colorDefault
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -51,7 +73,8 @@ class HomeViewController: UIViewController {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.text = "Pedidos"
-        view.font = UIFont(name: "Rubik", size: 30)
+        view.font = UIFont(name: "Rubik",
+                           size: 30)
         view.textColor = .white
         return view
     }()
@@ -83,9 +106,13 @@ class HomeViewController: UIViewController {
     private lazy var buttonAvailable: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = CGRect(x: 100, y: 100, width: 200, height: 60)
+        view.frame = CGRect(x: 100,
+                            y: 100,
+                            width: 200,
+                            height: 60
+        )
         view.setTitle("Disponíveis", for: .normal)
-        addBottomBorderWithColor(view: view, color: MobileTestConstants.colorBorderButton, width: 4)
+        addBottomBorderWithColor(view: view, color: Constants.colorBorderButton, width: 4)
         view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return view
     }()
@@ -93,9 +120,13 @@ class HomeViewController: UIViewController {
     private lazy var buttonAccept: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = CGRect(x: 100, y: 100, width: 200, height: 60)
+        view.frame = CGRect(x: 100,
+                            y: 100,
+                            width: 200,
+                            height: 60
+        )
         view.setTitle("Aceitos", for: .normal)
-        addBottomBorderWithColor(view: view, color: MobileTestConstants.colorBorderButton, width: 4)
+        addBottomBorderWithColor(view: view, color: Constants.colorBorderButton, width: 4)
         view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return view
     }()
@@ -109,7 +140,7 @@ class HomeViewController: UIViewController {
         view.rowHeight = 100
         return view
     }()
-     
+    
     lazy var testView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -126,7 +157,7 @@ class HomeViewController: UIViewController {
         navBarView.addSubview(iconMenu)
         navBarView.addSubview(labelRequest)
         navBarView.addSubview(stackViewButtons)
-       
+        
         stackViewButtons.addArrangedSubview(buttonAvailable)
         stackViewButtons.addArrangedSubview(buttonAccept)
         stackViewButtons.addSubview(avaiableIcon)
@@ -146,12 +177,12 @@ class HomeViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-           
+            
             iconMenu.topAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.topAnchor, constant: 13),
             iconMenu.leadingAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             iconMenu.widthAnchor.constraint(equalToConstant: 30),
             iconMenu.heightAnchor.constraint(equalToConstant: 30),
-           
+            
             
             avaiableIcon.widthAnchor.constraint(equalToConstant: 22),
             avaiableIcon.heightAnchor.constraint(equalToConstant: 22),
@@ -166,13 +197,12 @@ class HomeViewController: UIViewController {
             stackViewButtons.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor),
             stackViewButtons.widthAnchor.constraint(equalTo: navBarView.widthAnchor, multiplier: 1),
             stackViewButtons.heightAnchor.constraint(equalTo: navBarView.heightAnchor, multiplier: 0.3),
-
+            
             avaiableIcon.topAnchor.constraint(equalTo: stackViewButtons.topAnchor, constant: 14),
             avaiableIcon.leadingAnchor.constraint(equalTo: stackViewButtons.leadingAnchor, constant: 20),
             
             acceptIcon.topAnchor.constraint(equalTo: stackViewButtons.topAnchor, constant: 14),
             acceptIcon.trailingAnchor.constraint(equalTo: stackViewButtons.trailingAnchor, constant: -130),
-            
         ])
     }
     
@@ -185,7 +215,11 @@ class HomeViewController: UIViewController {
     func addBottomBorderWithColor(view: UIView, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: view.frame.height - 20, width: view.frame.size.width, height: width)
+        border.frame = CGRect(x: 0,
+                              y: view.frame.height - 20,
+                              width: view.frame.size.width,
+                              height: width
+        )
         view.layer.addSublayer(border)
     }
 }
@@ -195,16 +229,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
-   
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       return 110
+        return 110
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
                                                  for: indexPath)
-         
         return cell
     }
-
 }

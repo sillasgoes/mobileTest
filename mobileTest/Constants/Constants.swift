@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public struct MobileTestConstants {
+public struct Constants {
     
     static let colorDefault = UIColor(named: "BlueDefault")
     static let colorBackgroud = UIColor(named: "BlueBackground")
@@ -17,4 +17,13 @@ public struct MobileTestConstants {
     static let colorFontCustomCell = UIColor.black
     
     static let colorBorderButton = UIColor.white
+    
+    static let entryPoint = "http://testemobile.getninjas.com.br/"
+    
+    
+   public enum typeRequest: String {
+        case offer = "offers"
+        case lead = "lead"
+    }
+    
 }

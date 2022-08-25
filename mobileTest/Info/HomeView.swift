@@ -27,14 +27,14 @@ class HomeView: UIView {
     private lazy var backView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = MobileTestConstants.colorBackgroud
+        view.backgroundColor = Constants.colorBackgroud
         return view
     }()
     
     lazy var navBarView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = MobileTestConstants.colorDefault
+        view.backgroundColor = Constants.colorDefault
         return view
     }()
 
@@ -44,7 +44,7 @@ class HomeView: UIView {
         view.alignment = .center
         view.distribution = .fillEqually
         view.spacing = 3
-        view.backgroundColor = MobileTestConstants.colorDefault
+        view.backgroundColor = Constants.colorDefault
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -82,9 +82,13 @@ class HomeView: UIView {
     private lazy var buttonAvailable: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = CGRect(x: 100, y: 100, width: 200, height: 60)
+        view.frame = CGRect(x: 100,
+                            y: 100,
+                            width: 200,
+                            height: 60
+        )
         view.setTitle("Disponíveis", for: .normal)
-        addBottomBorderWithColor(view: view, color: MobileTestConstants.colorBorderButton, width: 4)
+        addBottomBorderWithColor(view: view, color: Constants.colorBorderButton, width: 4)
         view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return view
     }()
@@ -92,9 +96,13 @@ class HomeView: UIView {
     private lazy var buttonAccept: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = CGRect(x: 100, y: 100, width: 200, height: 60)
+        view.frame = CGRect(x: 100,
+                            y: 100,
+                            width: 200,
+                            height: 60
+        )
         view.setTitle("Aceitos", for: .normal)
-        addBottomBorderWithColor(view: view, color: MobileTestConstants.colorBorderButton, width: 4)
+        addBottomBorderWithColor(view: view, color: Constants.colorBorderButton, width: 4)
         view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return view
     }()
@@ -115,7 +123,7 @@ class HomeView: UIView {
         view.alignment = .trailing
         view.distribution = .fillProportionally
         view.spacing = 3
-        view.backgroundColor = MobileTestConstants.colorDefault
+        view.backgroundColor = Constants.colorDefault
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -126,7 +134,7 @@ class HomeView: UIView {
         view.alignment = .center
         view.distribution = .fillProportionally
         view.spacing = 3
-        view.backgroundColor = MobileTestConstants.colorDefault
+        view.backgroundColor = Constants.colorDefault
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
