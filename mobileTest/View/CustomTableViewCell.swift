@@ -11,7 +11,13 @@ class CustomTableViewCell: UITableViewCell {
     
     static let identifier = "CustomTableViewCell"
     
-    // MARK: - Overrides
+    var customCellModel: CustomCellModel?
+    private var name = UILabel()
+    private var nameOffer = UILabel()
+    private var date = UILabel()
+    private var local = UILabel()
+    
+    // MARK: - Init & Overrides
     
     required init?(coder: NSCoder) {
         fatalError()
@@ -23,52 +29,35 @@ class CustomTableViewCell: UITableViewCell {
         contentView.backgroundColor = .white
         setupViews()
         addConstraints()
-    
-    }
+       }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         configureBorderLayout()
     }
     
-    // MARK: - Proprieties Computed - Views
+    // MARK: - Configured Views
     
-    private lazy var name : UILabel = {
-        let view = UILabel()
-        view.textColor = Constants.colorFontCustomCell
-        view.font = UIFont(name: "Rubik",
+    func configuredViews() {
+        name.textColor = Constants.colorFontCustomCell
+        name.font = UIFont(name: "Rubik",
                            size: 14)
-        view.text = "Buffet Completo - Coffe-Break"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+        name.text = customCellModel?.name
+        
+        nameOffer.textColor = Constants.colorFontCustomCell
+        nameOffer.font = Constants.fontCustomCell
+        nameOffer.text = customCellModel?.nameOffer
+        
+        date.textColor = Constants.colorFontCustomCell
+        date.font = Constants.fontCustomCell
+        date.text = customCellModel?.data
+        
+        local.textColor = Constants.colorFontCustomCell
+        local.font = Constants.fontCustomCell
+        local.text = customCellModel?.local
+    }
     
-    private lazy var nameOffer : UILabel = {
-        let view = UILabel()
-        view.textColor = Constants.colorFontCustomCell
-        view.font = Constants.fontCustomCell
-        view.text = "Buffet 2"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var date : UILabel = {
-        let view = UILabel()
-        view.textColor = Constants.colorFontCustomCell
-        view.font = Constants.fontCustomCell
-        view.text = "31 de Mar"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var local : UILabel = {
-        let view = UILabel()
-        view.textColor = Constants.colorFontCustomCell
-        view.font = Constants.fontCustomCell
-        view.text = "Vila Leopoldina"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    // MARK: - Computed Proprieties
     
     private lazy var personIcon: UIImageView = {
         let view = UIImageView()
@@ -84,10 +73,11 @@ class CustomTableViewCell: UITableViewCell {
         return view
     }()
     
-    // MARK: - Funcs
+    // MARK: - Private Funcs & Funcs
     
     private func setupViews() {
         let views: [UIView] = [name, nameOffer, date, local]
+        views.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
         views.forEach{addSubview($0)}
     }
     
@@ -117,5 +107,6 @@ class CustomTableViewCell: UITableViewCell {
                                                                      left: 0,
                                                                      bottom: 10,
                                                                      right: 0))
-   }
+    }
+   
 }

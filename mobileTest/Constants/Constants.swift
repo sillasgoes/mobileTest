@@ -20,7 +20,6 @@ public struct Constants {
     
     static let entryPoint = "http://testemobile.getninjas.com.br/"
     
-    
     public enum typeRequest: String, Any {
         case offers =  "offers"
         case leads  =   "leads"

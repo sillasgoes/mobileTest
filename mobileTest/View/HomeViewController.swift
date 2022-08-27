@@ -12,6 +12,7 @@ class HomeViewController: UIViewController {
     
     let homeView = HomeView()
     let homeViewModel = HomeViewModel()
+  //  let apiService = ApiService()
     
     // MARK: - Overrides
     
@@ -20,6 +21,7 @@ class HomeViewController: UIViewController {
         view = homeView
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
+        homeViewModel.fetch(typeOf: .Offer)
     }
 }
 
@@ -35,8 +37,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
-                                                 for: indexPath)
-        cell.textLabel?.text = homeViewModel.offer[indexPath.row].offers[indexPath.row].state
+                                                 for: indexPath) as! CustomTableViewCell
+        cell.customCellModel = CustomCellViewModel(data: self.homeViewModel.offer[indexPath.row]).setupDataForCell()
+        cell.configuredViews()
+        
         return cell
     }
 }

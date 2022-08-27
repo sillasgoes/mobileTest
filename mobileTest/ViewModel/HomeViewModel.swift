@@ -7,31 +7,52 @@
 
 import Foundation
 
+public enum typeOfRequest {
+    case Offer
+    case Lead
+}
+
 class HomeViewModel {
     
-    var offer = [Offers]()
+    var offer = [Offer]()
+    var apiService = ApiService()
     
-    init() {
-        fetch()
-    }
-
-    func fetch() {
-        let url = URL(string: Constants.entryPoint + Constants.typeRequest.offers.rawValue)
+    init(){
         
+    }
+    
+    func fetch(typeOf: typeOfRequest){
+        
+        var url: URL?
+        var teste = apiService.links?.links
+        switch typeOf {
+        case .Offer:
+            url = URL(string: teste?.offers.href ?? "")
+            requestURL(url: url, codable: Offers.self)
+        case .Lead:
+            url = URL(string: apiService.links?.links.leads.href ?? "")
+            requestURL(url: url, codable: Leads.self)
+        }
+        
+    }
+    
+    func requestURL<T: Codable>(url: URL?, codable: T.Type) {
         guard let url = url else { return }
         
-        URLSession.shared.request(url: url, expecting: [Offers].self
-        ) { [weak self ] result in
+        URLSession.shared.request(url: url, expecting: codable
+        ) { result in
             
             switch result {
-            case .success(let offers):
-                self?.offer = offers
+            case .success(let result):
+               // self?.offer.append(contentsOf: offers.offers)
+                print("Resultado da chamada: \(result)")
             case .failure(let error):
                 print("Error \(error)")
             }
         }
     }
     
+
     var getNumberOfRows: Int {
         return offer.count
     }
