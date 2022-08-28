@@ -2,10 +2,11 @@
 //  URLSession+Extends.swift
 //  mobileTest
 //
-//  Created by Evo Systems on 25/08/22.
+//  Created by Sillas Santos on 25/08/22.
 //
 
 import Foundation
+import MapKit
 
 extension URLSession {
     
@@ -37,5 +38,18 @@ extension URLSession {
             }
          task.resume()
         }
-
 }
+
+extension MKMapView {
+  func centerToLocation(
+    _ location: CLLocation,
+    regionRadius: CLLocationDistance = 1000
+  ) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
+}
+

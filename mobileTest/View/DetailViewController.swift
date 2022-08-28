@@ -15,24 +15,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = detailView
-        detailView.tableView.delegate = self
-        detailView.tableView.dataSource = self
-        detailView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
-    
-    
 }
 
-extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
-        
-        return cell 
-    }
-    
-    
-}

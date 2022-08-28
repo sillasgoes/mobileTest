@@ -27,6 +27,30 @@ public struct Constants {
         case leadWithDetail = "lead"
     }
     
+    static func fontCustomDetail(size: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Rubik", size: size) else { return .systemFont(ofSize: 10) }
+        return font
+    }
+    
+    static func textWithIcon(imageName: String, text: String) -> NSMutableAttributedString {
+        
+        let iconSize = CGRect(x: 0, y: -5, width: 20, height: 20)
+        let image = UIImage(systemName: imageName)
+        
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = image
+        imageAttachment.bounds = iconSize
+        
+        let attachmentString = NSAttributedString(attachment: imageAttachment)
+        let completeText = NSMutableAttributedString(string: "")
+        completeText.append(attachmentString)
+        
+        let textAfterIcon = NSAttributedString(string: text)
+        completeText.append(textAfterIcon)
+        
+        return completeText
+    }
+    
     public enum Detail {
         case Yes
         case No
