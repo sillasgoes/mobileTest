@@ -14,5 +14,5 @@ struct CustomCellModel {
     var local: String
     var city: String
     var state: String
+    var link: String
 }
-

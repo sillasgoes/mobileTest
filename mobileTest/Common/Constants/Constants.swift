@@ -23,8 +23,6 @@ public struct Constants {
     public enum typeRequest: String, Any {
         case offers =  "offers"
         case leads  =   "leads"
-        case offerWithDetail = "offer"
-        case leadWithDetail = "lead"
     }
     
     static func fontCustomDetail(size: CGFloat) -> UIFont {
@@ -41,8 +39,6 @@ public struct Constants {
         imageAttachment.image = image
         imageAttachment.bounds = iconSize
         
-        
-        
         let attachmentString = NSAttributedString(attachment: imageAttachment)
         let completeText = NSMutableAttributedString(string: "")
         completeText.append(attachmentString)
@@ -51,11 +47,6 @@ public struct Constants {
         completeText.append(textAfterIcon)
         
         return completeText
-    }
-    
-    public enum Detail {
-        case Yes
-        case No
     }
     
     enum ErrorUrl: Error {

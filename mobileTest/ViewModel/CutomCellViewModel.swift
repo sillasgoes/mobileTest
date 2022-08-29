@@ -16,7 +16,8 @@ class CustomCellViewModel {
                                      date: data._embedded.request.created_at,
                                      local: data._embedded.request._embedded.address.neighborhood,
                                      city: data._embedded.request._embedded.address.city,
-                                     state: data.state)
+                                     state: data.state,
+                                     link: data._links.self_.href)
         return result
     }
     
@@ -27,8 +28,8 @@ class CustomCellViewModel {
                                      date: data.created_at,
                                      local: data._embedded.address.neighborhood,
                                      city: data._embedded.address.city,
-                                     state: "")
+                                     state: "",
+                                     link: data._links.self_.href)
         return result
-        
     }
 }

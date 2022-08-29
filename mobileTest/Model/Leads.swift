@@ -12,6 +12,7 @@ struct Leads: Codable {
     let _links: Links
     
 }
+
 struct Lead: Codable {
     let created_at: String
     let _embedded: Embedded
@@ -37,7 +38,6 @@ struct Lead: Codable {
             let title: String
         }
     }
-    
     
     struct Links: Codable {
         let self_ : _Self

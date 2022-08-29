@@ -8,9 +8,14 @@
 import Foundation
 import UIKit
 
+protocol HomeViewProtocolButtonTap: AnyObject {
+    func didTapButton(type: typeOfRequest)
+}
+
 class HomeView: UIView {
     
     // MARK: - Init
+    weak var delegate: HomeViewProtocolButtonTap?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -22,12 +27,18 @@ class HomeView: UIView {
         fatalError()
     }
     
-   public func setupTableViewDelegates(delegate: UITableViewDelegate, datasource: UITableViewDataSource){
-       DispatchQueue.main.async {
-           self.tableView.delegate = delegate
-           self.tableView.dataSource = datasource
-           self.tableView.reloadData()
-       }
+    public func setupTableViewDelegates(delegate: UITableViewDelegate, datasource: UITableViewDataSource){
+        DispatchQueue.main.async {
+            self.tableView.delegate = delegate
+            self.tableView.dataSource = datasource
+            self.reloadData()
+        }
+    }
+    
+    public func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - Proprieties Computed
@@ -59,21 +70,28 @@ class HomeView: UIView {
     private lazy var labelRequest: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "Pedidos"
+        view.attributedText = Constants.textWithIcon(imageName: "square.stack.3d.up.fill", text: "Pedidos", width: 30, height: 30, y: -4, color: .white)
         view.font = UIFont(name: "Rubik",
                            size: 30)
         view.textColor = .white
         return view
     }()
     
-    private lazy var iconMenu: UIImageView = {
-        let view = UIImageView()
+    private lazy var lineViewButtonAvailable: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(systemName: "square.stack.3d.up.fill")
-        view.tintColor = .white
         return view
     }()
-
+    
+    private lazy var lineViewButtonAccept: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constants.colorBackgroud
+        return view
+    }()
+    
     private lazy var buttonAvailable: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +101,8 @@ class HomeView: UIView {
         configuration.imagePadding = 10
         configuration.background.cornerRadius = 0
         view.configuration = configuration
-        view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        view.tag = 1
+        view.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
         return view
     }()
     
@@ -97,7 +116,8 @@ class HomeView: UIView {
         configuration.imagePadding = 10
         configuration.background.cornerRadius = 0
         view.configuration = configuration
-        view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        view.tag = 2
+        view.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
         return view
     }()
     
@@ -110,27 +130,22 @@ class HomeView: UIView {
         view.rowHeight = 100
         return view
     }()
-    
-    lazy var testView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+ 
     // MARK: - Private Funcs
     
     private func setupView(){
         addSubview(backView)
+        
         backView.addSubview(navBarView)
+        backView.addSubview(lineViewButtonAvailable)
+        backView.addSubview(lineViewButtonAccept)
         backView.addSubview(tableView)
-        navBarView.addSubview(iconMenu)
+        
         navBarView.addSubview(labelRequest)
         navBarView.addSubview(stackViewButtons)
         
         stackViewButtons.addArrangedSubview(buttonAvailable)
         stackViewButtons.addArrangedSubview(buttonAccept)
-      
     }
     
     private func addConstraints(){
@@ -139,33 +154,44 @@ class HomeView: UIView {
             backView.heightAnchor.constraint(equalTo: heightAnchor),
             
             navBarView.widthAnchor.constraint(equalTo: backView.widthAnchor),
-            navBarView.heightAnchor.constraint(equalTo: backView.heightAnchor, multiplier: 0.2),
+            navBarView.heightAnchor.constraint(equalTo: backView.heightAnchor, multiplier: 0.25),
             navBarView.topAnchor.constraint(equalTo: backView.topAnchor),
+            
+            lineViewButtonAvailable.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            lineViewButtonAvailable.heightAnchor.constraint(equalToConstant: 3),
+            lineViewButtonAvailable.topAnchor.constraint(equalTo: navBarView.bottomAnchor),
+            lineViewButtonAvailable.leadingAnchor.constraint(equalTo: leadingAnchor),
+            
+            lineViewButtonAccept.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            lineViewButtonAccept.heightAnchor.constraint(equalToConstant: 3),
+            lineViewButtonAccept.topAnchor.constraint(equalTo: navBarView.bottomAnchor),
+            lineViewButtonAccept.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             tableView.topAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: backView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            iconMenu.topAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.topAnchor, constant: 13),
-            iconMenu.leadingAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            iconMenu.widthAnchor.constraint(equalToConstant: 30),
-            iconMenu.heightAnchor.constraint(equalToConstant: 30),
-           
             labelRequest.topAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.topAnchor, constant: 7),
-            labelRequest.leadingAnchor.constraint(equalTo: iconMenu.leadingAnchor, constant: 40),
+            labelRequest.widthAnchor.constraint(equalTo: navBarView.widthAnchor, multiplier: 0.50),
+            labelRequest.leadingAnchor.constraint(equalTo: navBarView.leadingAnchor, constant: 20),
             
             stackViewButtons.topAnchor.constraint(equalTo: labelRequest.bottomAnchor, constant: 20),
             stackViewButtons.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor),
             stackViewButtons.widthAnchor.constraint(equalTo: navBarView.widthAnchor, multiplier: 1),
             stackViewButtons.heightAnchor.constraint(equalTo: navBarView.heightAnchor, multiplier: 0.3),
-
         ])
     }
     // MARK: - Funcs and @objc funcs
     
-    @objc func buttonAction(){
-        
+    @objc func buttonAction(sender: UIButton){
+        if sender.tag == 1 {
+            delegate?.didTapButton(type: .Offer)
+            changeColorOfLineButton(type: .Offer)
+        } else {
+            delegate?.didTapButton(type: .Lead)
+            changeColorOfLineButton(type: .Lead)
+        }
     }
     
     func addBottomBorderWithColor(view: UIView, color: UIColor, width: CGFloat) {
@@ -177,5 +203,20 @@ class HomeView: UIView {
                               height: width
         )
         view.addSubview(border)
+    }
+    
+    func changeColorOfLineButton(type: typeOfRequest) {
+        if type == .Offer {
+            DispatchQueue.main.async {
+                self.lineViewButtonAvailable.backgroundColor = .white
+                self.lineViewButtonAccept.backgroundColor = Constants.colorBackgroud
+            }
+        }
+        if type == .Lead {
+            DispatchQueue.main.async {
+                self.lineViewButtonAvailable.backgroundColor = Constants.colorBackgroud
+                self.lineViewButtonAccept.backgroundColor = .white
+            }
+        }
     }
 }

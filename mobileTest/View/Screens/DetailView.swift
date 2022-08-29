@@ -13,9 +13,9 @@ class DetailView: UIView {
     
     var detailModel: DetailModel?
     
-    let navBar = UIView()
     let viewMap = MKMapView()
     
+    let navBar = UIView()
     let backView = UIView()
     let line = UIView()
     let viewForClientInfo = UIView()
@@ -33,6 +33,15 @@ class DetailView: UIView {
     let label6 = UILabel()
     let label7 = UILabel()
     let label8 = UILabel()
+    
+    let value1 = UILabel()
+    let value2 = UILabel()
+    let value3 = UILabel()
+    let value4 = UILabel()
+    let value5 = UILabel()
+    let value6 = UILabel()
+    let value7 = UILabel()
+    
     let clientInfo = UILabel()
     let phone = UILabel()
     let email = UILabel()
@@ -41,9 +50,16 @@ class DetailView: UIView {
     
     let scrollView = UIScrollView()
     let stackView = UIStackView()
+    let stackViewForLead = UIStackView()
     
-    let buttonCall = UIButton()
+    let callButton = UIButton()
     let whatsButton = UIButton()
+    let refusedButton = UIButton()
+    let acceptButton = UIButton()
+    
+    let detailViewModel = DetailViewModel()
+    
+    // MARK: - Init & Overrides
     
     required init?(coder: NSCoder) {
         fatalError()
@@ -56,6 +72,8 @@ class DetailView: UIView {
         configuredLayoutViews()
         addConstraints()
     }
+    
+    // MARK: - Funcs
     
     func setupViews() {
         let views = [ navBar, scrollView, stackView, line]
@@ -71,6 +89,13 @@ class DetailView: UIView {
                            label5,
                            label6,
                            label7,
+                           value1,
+                           value2,
+                           value3,
+                           value4,
+                           value5,
+                           value6,
+                           value7,
                            clientInfo,
                            phone,
                            email,
@@ -80,7 +105,7 @@ class DetailView: UIView {
                            alert,
         ]
         
-        let viewsStack = [buttonCall, whatsButton]
+        let viewsStack = [callButton, whatsButton]
         
         let viewsInfo = [clientInfo, phone, email]
         
@@ -90,10 +115,9 @@ class DetailView: UIView {
         viewsTable.forEach{ scrollView.addSubview($0) }
         viewsTable.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        
         viewsStack.forEach{ stackView.addArrangedSubview($0) }
         viewsStack.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
-        
+       
         viewsInfo.forEach{ viewForClientInfo.addSubview($0)}
         viewsInfo.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
     }
@@ -105,18 +129,6 @@ class DetailView: UIView {
         scrollView.contentSize = CGSize(width: frame.size.width, height: 1100)
         
         viewMap.backgroundColor = .cyan
-        let initialLocaltion = CLLocation(latitude: -23.55579114922735, longitude: -46.43631235005929)
-        viewMap.centerToLocation(initialLocaltion, regionRadius: 1000)
-        let region = MKCoordinateRegion(
-          center: initialLocaltion.coordinate,
-          latitudinalMeters: 50000,
-          longitudinalMeters: 60000)
-        viewMap.setCameraBoundary(
-          MKMapView.CameraBoundary(coordinateRegion: region),
-          animated: true)
-        
-        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
-        viewMap.setCameraZoomRange(zoomRange, animated: true)
         
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
@@ -124,20 +136,25 @@ class DetailView: UIView {
         stackView.layer.borderWidth = 1
         stackView.layer.borderColor = Constants.colorDefault?.cgColor
         
+        stackViewForLead.distribution = .fillEqually
+        stackViewForLead.axis = .horizontal
+        stackViewForLead.backgroundColor = .white
+        stackViewForLead.layer.borderWidth = 1
+        stackViewForLead.layer.borderColor = Constants.colorDefault?.cgColor
+        
         title.textColor = .black
         title.font = Constants.fontCustomDetail(size: 20)
-        title.text = "Buffet Completo - Coffe - Break"
         
         line.backgroundColor = Constants.colorDefault
         
         viewForClientInfo.backgroundColor = .green
         
-        buttonCall.backgroundColor = .white
-        buttonCall.setTitle("Ligar", for: .normal)
-        buttonCall.setImage(UIImage(systemName: "phone"), for: .normal)
-        buttonCall.titleLabel?.font = Constants.fontCustomDetail(size: 20)
-        buttonCall.setTitleColor(Constants.colorDefault, for: .normal)
-        buttonCall.frame = CGRect(x: 100,
+        callButton.backgroundColor = .white
+        callButton.setTitle("Ligar", for: .normal)
+        callButton.setImage(UIImage(systemName: "phone"), for: .normal)
+        callButton.titleLabel?.font = Constants.fontCustomDetail(size: 20)
+        callButton.setTitleColor(Constants.colorDefault, for: .normal)
+        callButton.frame = CGRect(x: 100,
                                   y: 100,
                                   width: 200,
                                   height: 60
@@ -158,8 +175,6 @@ class DetailView: UIView {
         phone.font = .boldSystemFont(ofSize: 15)
         email.font = .boldSystemFont(ofSize: 15)
         
-        
-        textOfUiLabel()
     }
     
     func addConstraints(){
@@ -212,29 +227,57 @@ class DetailView: UIView {
             label1.topAnchor.constraint(equalTo: city.bottomAnchor, constant: 50),
             label1.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
+            value1.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value1.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 10),
+            value1.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
             label2.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: distanceOfLabel),
             label2.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
+            value2.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value2.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 10),
+            value3.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
             label3.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             label3.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: distanceOfLabel),
             label3.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
+            value3.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value3.topAnchor.constraint(equalTo: label3.bottomAnchor, constant: 10),
+            value3.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
             label4.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             label4.topAnchor.constraint(equalTo: label3.bottomAnchor, constant: distanceOfLabel),
             label4.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
+            value4.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value4.topAnchor.constraint(equalTo: label4.bottomAnchor, constant: 10),
+            value4.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
             label5.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             label5.topAnchor.constraint(equalTo: label4.bottomAnchor, constant: distanceOfLabel),
             label5.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
+            value5.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value5.topAnchor.constraint(equalTo: label5.bottomAnchor, constant: 10),
+            value5.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
             label6.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             label6.topAnchor.constraint(equalTo: label5.bottomAnchor, constant: distanceOfLabel),
             label6.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
+            value6.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value6.topAnchor.constraint(equalTo: label6.bottomAnchor, constant: 10),
+            value6.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
             label7.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             label7.topAnchor.constraint(equalTo: label6.bottomAnchor, constant: distanceOfLabel),
             label7.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
+            
+            value7.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            value7.topAnchor.constraint(equalTo: label7.bottomAnchor, constant: 10),
+            value7.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: leadingForStack),
             
             viewForClientInfo.topAnchor.constraint(equalTo: label7.bottomAnchor, constant: 40),
             viewForClientInfo.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
@@ -256,32 +299,54 @@ class DetailView: UIView {
         ])
     }
     
-    func textOfUiLabel() {
+    func setupLayoutForOffer(){
+        addSubview(stackViewForLead)
         
-        let sizeIcon = (width: 20, height: 20)
-        let yForIcon = -5
-        let iconLabel = "exclamationmark.circle"
+        stackViewForLead.addArrangedSubview(refusedButton)
+        stackViewForLead.addArrangedSubview(acceptButton)
         
-        guard let detailModel = detailModel else {
-            return
-        }
-
-        user.attributedText = Constants.textWithIcon(imageName: "person", text: detailModel.user, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        neighborhood.attributedText = Constants.textWithIcon(imageName: "map", text: detailModel.neighborhood, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        NSLayoutConstraint.activate([
+            stackViewForLead.widthAnchor.constraint(equalTo: widthAnchor),
+            stackViewForLead.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
+            stackViewForLead.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
         
-        city.text = detailModel.city
-        label1.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label1, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        label2.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label2, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        label3.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label3, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        label4.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label4, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        label5.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label5, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        label6.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label6 , width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        label7.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label7, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        let viewsStackForLead = [refusedButton, acceptButton]
         
-        clientInfo.text = "Contato do cliente"
-        phone.attributedText = Constants.textWithIcon(imageName: "phone", text: detailModel.phone, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        email.attributedText = Constants.textWithIcon(imageName: "envelope", text: detailModel.email, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
-        alert.text = "Fale com o cliente o quanto antes"
+        viewsStackForLead.forEach{ stackViewForLead.addArrangedSubview($0) }
+        stackViewForLead.translatesAutoresizingMaskIntoConstraints = false
+        viewsStackForLead.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
+        
+        
+        refusedButton.setTitle("Recusar", for: .normal)
+        var configuration = UIButton.Configuration.filled()
+        configuration.image = UIImage(systemName: "xmark")
+        configuration.imagePadding = 10
+        configuration.background.cornerRadius = 0
+        configuration.baseBackgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        refusedButton.configuration = configuration
+        refusedButton.titleLabel?.font = Constants.fontCustomDetail(size: 30)
+        refusedButton.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
+        refusedButton.frame = CGRect(x: 100,
+                                   y: 100,
+                                   width: 200,
+                                   height: 60
+        )
+        
+        acceptButton.backgroundColor = .white
+        acceptButton.setTitle("Aceitar", for: .normal)
+        var configButton = UIButton.Configuration.filled()
+        configButton.image = UIImage(systemName: "checkmark")
+        configButton.imagePadding = 10
+        configButton.background.cornerRadius = 0
+        configButton.baseBackgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        acceptButton.configuration = configButton
+        acceptButton.titleLabel?.font = Constants.fontCustomDetail(size: 30)
+        acceptButton.setTitleColor(.white, for: .normal)
+        acceptButton.frame = CGRect(x: 100,
+                                   y: 100,
+                                   width: 200,
+                                   height: 60
+        )
     }
- 
 }

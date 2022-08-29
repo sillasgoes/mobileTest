@@ -7,17 +7,19 @@
 
 import Foundation
 
+// MARK: - Protocol
 protocol GenericService: AnyObject {
     typealias completion<T> = (_ result: T, _ failure: Error?) -> Void
 }
 
+protocol ServiceDelegate: GenericService {
+    func getLinksFromApi(completion: @escaping completion<Link?>)
+}
+// MARK: - Enum
+
 enum ErrorURL: Error {
     case urlNotFound
     case fileDecodingFailed
-}
-
-protocol ServiceDelegate: GenericService {
-    func getLinksFromApi(completion: @escaping completion<Link?>)
 }
 
 class Service: ServiceDelegate {
@@ -30,11 +32,9 @@ class Service: ServiceDelegate {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             
             if error == nil {
-                
                 guard let data = data else {
                     return
                 }
-                
                 do {
                     let data = try JSONDecoder().decode(Link.self, from: data)
                     completion(data, nil)
@@ -48,22 +48,18 @@ class Service: ServiceDelegate {
     
     func getOfferFromApi(completion: @escaping completion<Offers?>) {
         
-        var url: URL?
-        
         getLinksFromApi { result, failure in
             
             guard let url = URL(string: result?.links.offers.href ?? "" ) else  {
                 return
             }
-                    
+            
             let task = URLSession.shared.dataTask(with: url) { data, _, error in
                 
                 if error == nil {
-                    
                     guard let data = data else {
                         return
                     }
-                    
                     do {
                         let data = try JSONDecoder().decode(Offers.self, from: data)
                         completion(data, nil)
@@ -76,29 +72,48 @@ class Service: ServiceDelegate {
         }
     }
     
-    func getOLeadsFromApi(completion: @escaping completion<Leads?>) {
-        
-        var url: URL?
-        
+    func getLeadsFromApi(completion: @escaping completion<Leads?>) {
         getLinksFromApi { result, failure in
             
             guard let url = URL(string: result?.links.leads.href ?? "" ) else  {
                 return
             }
-                    
+            
             let task = URLSession.shared.dataTask(with: url) { data, _, error in
-                
                 if error == nil {
-                    
                     guard let data = data else {
                         return
                     }
-                    
                     do {
                         let data = try JSONDecoder().decode(Leads.self, from: data)
                         completion(data, nil)
                     } catch {
                         completion(nil, ErrorURL.urlNotFound)
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func getDetailFromApi(url: URL?, completion: @escaping completion<Detail?>) {
+        
+        getLinksFromApi { result, failure in
+            
+            guard let url = url else { return }
+            
+            let task = URLSession.shared.dataTask(with: url) { data, _, error in
+                if error == nil {
+                    guard let data = data else {
+                        return
+                    }
+                    do {
+                        let data = try JSONDecoder().decode(Detail.self, from: data)
+                        print("Os Dados \(data)")
+                        completion(data, nil)
+                    } catch let error {
+                        print("Erro da requisição \(error)")
+                        completion(nil, error)
                     }
                 }
             }

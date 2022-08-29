@@ -7,17 +7,28 @@
 
 import UIKit
 
+// MARK: - Protocol
+
+protocol CustomTableViewCellProtocol: AnyObject {
+    func didTapButton(link: String)
+}
+
 class CustomTableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
     
     static let identifier = "CustomTableViewCell"
     
     var customCellModel: CustomCellModel?
+    
+    weak var delegate: CustomTableViewCellProtocol?
     
     private var name = UILabel()
     private var nameOffer = UILabel()
     private var date = UILabel()
     private var local = UILabel()
     private var city = UILabel()
+    private var button = UIButton()
     
     // MARK: - Init & Overrides
     
@@ -31,17 +42,16 @@ class CustomTableViewCell: UITableViewCell {
         contentView.backgroundColor = .white
         setupViews()
         addConstraints()
-       }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         configureBorderLayout()
     }
     
-    // MARK: - Configured Views
+    // MARK: - Funcs and @objc funcs
     
     func configuredViews() {
-         
         let color = setRead(state: customCellModel?.state ?? "")
         
         name.textColor = Constants.colorFontCustomCell
@@ -54,30 +64,28 @@ class CustomTableViewCell: UITableViewCell {
         nameOffer.text = customCellModel?.nameOffer
         nameOffer.attributedText = Constants.textWithIcon(imageName: "person.fill", text: customCellModel?.nameOffer ?? "", width: 13, height: 13, y: -2, color: color)
         
-        
         date.textColor = Constants.colorFontCustomCell
         date.font = Constants.fontCustomCell
         date.attributedText = Constants.textWithIcon(imageName: "person.fill", text: convertDate(with: customCellModel?.date ?? ""), width: 13, height: 13, y: -2, color: color)
-        
-        
         
         local.textColor = Constants.colorFontCustomCell
         local.font = Constants.fontCustomCell
         local.attributedText = Constants.textWithIcon(imageName: "map.fill", text: customCellModel?.local ?? "", width: 13, height: 13, y: -2, color: color)
         
-    
-        
         city.textColor = Constants.colorFontCustomCell
         city.font = Constants.fontCustomCell
         city.text = customCellModel?.city
         
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(buttonFunction), for: .touchUpInside)
     }
     
- 
-    // MARK: - Private Funcs & Funcs
-    
+    @objc func buttonFunction(){
+        delegate?.didTapButton(link: customCellModel?.link ?? "")
+    }
+
     private func setupViews() {
-        let views: [UIView] = [name, nameOffer, date, local, city]
+        let views: [UIView] = [name, nameOffer, date, local, city, button]
         views.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
         views.forEach{ addSubview($0) }
     }
@@ -98,7 +106,10 @@ class CustomTableViewCell: UITableViewCell {
             city.leadingAnchor.constraint(equalTo: local.trailingAnchor, constant: 10),
             
             date.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
-            date.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30)
+            date.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            
+            button.widthAnchor.constraint(equalTo: widthAnchor),
+            button.heightAnchor.constraint(equalTo: heightAnchor),
         ])
     }
     
@@ -112,7 +123,7 @@ class CustomTableViewCell: UITableViewCell {
                                                                      bottom: 10,
                                                                      right: 0))
     }
-   
+    
     func convertDate(with strDate: String ) -> String {
         
         let strRange = strDate.prefix(10)
@@ -132,11 +143,11 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func setRead(state: String) -> UIColor {
-       
+        
         if state == "read" {
             return UIColor.gray
         } else {
-           return UIColor.blue
+            return Constants.colorDefault ?? UIColor.blue
         }
     }
 }

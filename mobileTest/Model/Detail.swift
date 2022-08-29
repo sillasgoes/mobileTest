@@ -10,11 +10,9 @@ import Foundation
 struct Detail: Codable {
     
     let distance: Int
-    let lead_prince: Int
+    let lead_price: Int
     let title: String
     let _embedded: EmbeddedInfo
-    let _link: Link
-
     struct EmbeddedInfo: Codable {
         let info: [Info]
         let user: User
@@ -22,7 +20,10 @@ struct Detail: Codable {
         
         struct Info: Codable {
             let label: String
-            let value: [String]
+            //  var value: [String]?
+            
+            // Não consegui implementar a lógica do decode para os dois casos Array e String
+            // Os as variaveis e elementos visuais para implementar o value estão prontos
         }
         
         struct User: Codable {
@@ -38,7 +39,7 @@ struct Detail: Codable {
                 }
             }
         }
-
+        
         struct Address: Codable {
             let city: String
             let neighborhood: String
@@ -46,8 +47,8 @@ struct Detail: Codable {
             let geolocation: Geolocation
             
             struct Geolocation: Codable {
-                let latitude: Int
-                let longitude: Int
+                let latitude: Double
+                let longitude: Double
             }
         }
     }
@@ -67,6 +68,8 @@ struct Detail: Codable {
 }
 
 struct DetailModel {
+    var distance: Int
+    var lead_price: Int
     var title: String
     var user: String
     var neighborhood: String
@@ -78,6 +81,15 @@ struct DetailModel {
     var label5: String
     var label6: String
     var label7: String
+    var value1: String
+    var value2: String
+    var value3: String
+    var value4: String
+    var value5: String
+    var value6: String
+    var value7: String
     var phone: String
     var email: String
+    var latitude: Double
+    var longitude: Double
 }

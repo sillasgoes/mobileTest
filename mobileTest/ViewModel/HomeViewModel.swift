@@ -7,12 +7,16 @@
 
 import Foundation
 
+// MARK: - Enum
+
 public enum typeOfRequest {
     case Offer
     case Lead
 }
 
-protocol HomeViewModeDelegate: AnyObject{
+// MARK: - Protocol
+
+protocol HomeViewModelDelegate: AnyObject {
     func successRequest()
     func errorRequest()
 }
@@ -21,16 +25,20 @@ class HomeViewModel {
     
     var offers : [Offer] = []
     var leads : [Lead] = []
-   
+    
     private let service: Service = Service()
     
-    private weak var delegate: HomeViewModeDelegate?
+    // MARK: - Delegate
     
-    public func delegate(delegate: HomeViewModeDelegate){
+    private weak var delegate: HomeViewModelDelegate?
+    
+    public func delegate(delegate: HomeViewModelDelegate) {
         self.delegate = delegate
     }
     
-    public func fetchAllRequest(){
+    // MARK: - Funcs
+    
+    public func fetchOffer() {
         service.getOfferFromApi { success, error in
             
             if let _success = success {
@@ -39,66 +47,17 @@ class HomeViewModel {
             } else {
                 self.delegate?.errorRequest()
             }
-                
-        }
-    }
-
-    func fetchO(completion: @escaping (Offers) -> () ) {
-        
-        let url = URL(string: Constants.entryPoint)
-        var urlRequest: URL?
-        
-        URLSession.shared.request(url: url, expecting: Link.self
-        ) { result in
-            
-            switch result {
-            case .success(let links):
-                
-                urlRequest = URL(string: links.links.offers.href)
-                self.requestURL(url: urlRequest, codable: Offers.self) { result in
-                    completion(result)
-                }
-                
-            case .failure(let error):
-                print("Error \(error)")
-            }
-        }
-        
-    }
-    
-    func fetchL(completion: @escaping (Leads) -> () ) {
-        
-        let url = URL(string: Constants.entryPoint)
-        var urlRequest: URL?
-        
-        URLSession.shared.request(url: url, expecting: Link.self
-        ) { result in
-            
-            switch result {
-            case .success(let links):
-                
-                urlRequest = URL(string: links.links.offers.href)
-                self.requestURL(url: urlRequest, codable: Leads.self) { result in
-                    completion(result)
-                }
-                
-            case .failure(let error):
-                print("Error \(error)")
-            }
         }
     }
     
-    func requestURL<T: Codable>(url: URL?, codable: T.Type, completion: @escaping (T) -> () ) {
-        guard let url = url else { return }
-        
-        URLSession.shared.request(url: url, expecting: codable
-        ) { result in
+    public func fetchLeads() {
+        service.getLeadsFromApi { success, error in
             
-            switch result {
-            case .success(let result):
-                completion(result)
-            case .failure(let error):
-                print("Error \(error)")
+            if let _success = success {
+                self.leads = _success.leads
+                self.delegate?.successRequest()
+            } else {
+                self.delegate?.errorRequest()
             }
         }
     }

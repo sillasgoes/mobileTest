@@ -1,5 +1,5 @@
 //
-//  URLSession+Extends.swift
+//  URLSession+Extension.swift
 //  mobileTest
 //
 //  Created by Sillas Santos on 25/08/22.
@@ -37,19 +37,5 @@ extension URLSession {
                 }
             }
          task.resume()
-        }
+    }
 }
-
-extension MKMapView {
-  func centerToLocation(
-    _ location: CLLocation,
-    regionRadius: CLLocationDistance = 1000
-  ) {
-    let coordinateRegion = MKCoordinateRegion(
-      center: location.coordinate,
-      latitudinalMeters: regionRadius,
-      longitudinalMeters: regionRadius)
-    setRegion(coordinateRegion, animated: true)
-  }
-}
-
