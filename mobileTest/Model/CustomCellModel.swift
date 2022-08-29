@@ -10,7 +10,9 @@ import Foundation
 struct CustomCellModel {
     var name: String
     var nameOffer: String
-    var data: String
+    var date: String
     var local: String
+    var city: String
+    var state: String
 }
 

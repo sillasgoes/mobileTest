@@ -35,6 +35,8 @@
 		98DC4C6128B5191000840342 /* Rubik-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */; };
 		98DC4C6328B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */; };
 		98DC4C6528B5976A00840342 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DC4C6428B5976A00840342 /* CustomTableViewCell.swift */; };
+		98E7BED828BBEA4100662DC1 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7BED728BBEA4100662DC1 /* Service.swift */; };
+		98E7BEDA28BC368D00662DC1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7BED928BC368D00662DC1 /* DetailViewModel.swift */; };
 		98EEDDBF28B7BA5100ED72AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EEDDBE28B7BA5100ED72AF /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +90,8 @@
 		98DC4C6028B5191000840342 /* Rubik-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		98DC4C6228B5199D00840342 /* Rubik-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		98DC4C6428B5976A00840342 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		98E7BED728BBEA4100662DC1 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		98E7BED928BC368D00662DC1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		98EEDDBE28B7BA5100ED72AF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +143,7 @@
 		9842459C28B503E1006C394B /* mobileTest */ = {
 			isa = PBXGroup;
 			children = (
+				98E7BED628BBEA3000662DC1 /* Service */,
 				984245AB28B503E4006C394B /* Info.plist */,
 				98EEDDBD28B7B59900ED72AF /* Info */,
 				98EEDDBC28B7B33E00ED72AF /* View */,
@@ -199,6 +204,15 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		98E7BED628BBEA3000662DC1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				9864CE7828B942BB0065929D /* ApiService.swift */,
+				98E7BED728BBEA4100662DC1 /* Service.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		98EEDDB628B7AB9600ED72AF /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,7 +230,7 @@
 			children = (
 				98EEDDBE28B7BA5100ED72AF /* HomeViewModel.swift */,
 				9864CE7228B900960065929D /* CutomCellViewModel.swift */,
-				9864CE7828B942BB0065929D /* ApiService.swift */,
+				98E7BED928BC368D00662DC1 /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -382,6 +396,7 @@
 				9842459E28B503E1006C394B /* AppDelegate.swift in Sources */,
 				988C73A428B835E6005714B0 /* HomeView.swift in Sources */,
 				9851D51428BAD0E500B5E308 /* UIView+Extends.swift in Sources */,
+				98E7BEDA28BC368D00662DC1 /* DetailViewModel.swift in Sources */,
 				985A248D28B98BAE0002DC50 /* DetailView.swift in Sources */,
 				9864CE7928B942BB0065929D /* ApiService.swift in Sources */,
 				98EEDDBF28B7BA5100ED72AF /* HomeViewModel.swift in Sources */,
@@ -389,6 +404,7 @@
 				9864CE7528B904E40065929D /* CustomCellModel.swift in Sources */,
 				988C739C28B80E6F005714B0 /* Offers.swift in Sources */,
 				984245A028B503E1006C394B /* SceneDelegate.swift in Sources */,
+				98E7BED828BBEA4100662DC1 /* Service.swift in Sources */,
 				98DC4C6528B5976A00840342 /* CustomTableViewCell.swift in Sources */,
 				988AE12C28B6BBF600F65151 /* DetailViewController.swift in Sources */,
 				988C739E28B80FDC005714B0 /* Leads.swift in Sources */,

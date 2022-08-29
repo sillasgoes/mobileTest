@@ -22,6 +22,14 @@ class HomeView: UIView {
         fatalError()
     }
     
+   public func setupTableViewDelegates(delegate: UITableViewDelegate, datasource: UITableViewDataSource){
+       DispatchQueue.main.async {
+           self.tableView.delegate = delegate
+           self.tableView.dataSource = datasource
+           self.tableView.reloadData()
+       }
+    }
+    
     // MARK: - Proprieties Computed
     
     private lazy var backView: UIView = {
@@ -41,9 +49,8 @@ class HomeView: UIView {
     private lazy var stackViewButtons: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.alignment = .center
+        view.alignment = .bottom
         view.distribution = .fillEqually
-        view.spacing = 3
         view.backgroundColor = Constants.colorDefault
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -66,33 +73,16 @@ class HomeView: UIView {
         view.tintColor = .white
         return view
     }()
-    
-    private lazy var avaiableIcon: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(systemName: "bag")
-        view.tintColor = .white
-        return view
-    }()
-    
-    private lazy var acceptIcon: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(systemName: "checkmark")
-        view.tintColor = .white
-        return view
-    }()
-    
+
     private lazy var buttonAvailable: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = CGRect(x: 100,
-                            y: 100,
-                            width: 200,
-                            height: 60
-        )
-        view.setTitle("Disponíveis", for: .normal)
-        addBottomBorderWithColor(view: view, color: Constants.colorBorderButton, width: 4)
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Disponíveis"
+        configuration.image = UIImage(systemName: "bag")
+        configuration.imagePadding = 10
+        configuration.background.cornerRadius = 0
+        view.configuration = configuration
         view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return view
     }()
@@ -100,13 +90,13 @@ class HomeView: UIView {
     private lazy var buttonAccept: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.frame = CGRect(x: 100,
-                            y: 100,
-                            width: 200,
-                            height: 60
-        )
         view.setTitle("Aceitos", for: .normal)
-        addBottomBorderWithColor(view: view, color: Constants.colorBorderButton, width: 4)
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Aceitos"
+        configuration.image = UIImage(systemName: "checkmark")
+        configuration.imagePadding = 10
+        configuration.background.cornerRadius = 0
+        view.configuration = configuration
         view.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return view
     }()
@@ -140,8 +130,7 @@ class HomeView: UIView {
         
         stackViewButtons.addArrangedSubview(buttonAvailable)
         stackViewButtons.addArrangedSubview(buttonAccept)
-        stackViewButtons.addSubview(avaiableIcon)
-        stackViewButtons.addSubview(acceptIcon)
+      
     }
     
     private func addConstraints(){
@@ -162,14 +151,7 @@ class HomeView: UIView {
             iconMenu.leadingAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             iconMenu.widthAnchor.constraint(equalToConstant: 30),
             iconMenu.heightAnchor.constraint(equalToConstant: 30),
-            
-            
-            avaiableIcon.widthAnchor.constraint(equalToConstant: 22),
-            avaiableIcon.heightAnchor.constraint(equalToConstant: 22),
-            
-            acceptIcon.widthAnchor.constraint(equalToConstant: 22),
-            acceptIcon.heightAnchor.constraint(equalToConstant: 22),
-            
+           
             labelRequest.topAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.topAnchor, constant: 7),
             labelRequest.leadingAnchor.constraint(equalTo: iconMenu.leadingAnchor, constant: 40),
             
@@ -177,15 +159,9 @@ class HomeView: UIView {
             stackViewButtons.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor),
             stackViewButtons.widthAnchor.constraint(equalTo: navBarView.widthAnchor, multiplier: 1),
             stackViewButtons.heightAnchor.constraint(equalTo: navBarView.heightAnchor, multiplier: 0.3),
-            
-            avaiableIcon.topAnchor.constraint(equalTo: stackViewButtons.topAnchor, constant: 14),
-            avaiableIcon.leadingAnchor.constraint(equalTo: stackViewButtons.leadingAnchor, constant: 20),
-            
-            acceptIcon.topAnchor.constraint(equalTo: stackViewButtons.topAnchor, constant: 14),
-            acceptIcon.trailingAnchor.constraint(equalTo: stackViewButtons.trailingAnchor, constant: -130),
+
         ])
     }
-    
     // MARK: - Funcs and @objc funcs
     
     @objc func buttonAction(){
@@ -193,13 +169,13 @@ class HomeView: UIView {
     }
     
     func addBottomBorderWithColor(view: UIView, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
+        let border = UIView(frame: frame)
+        border.backgroundColor = UIColor.white
         border.frame = CGRect(x: 0,
-                              y: view.frame.height - 20,
+                              y: view.frame.size.height,
                               width: view.frame.size.width,
                               height: width
         )
-        view.layer.addSublayer(border)
+        view.addSubview(border)
     }
 }

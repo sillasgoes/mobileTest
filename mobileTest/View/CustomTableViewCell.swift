@@ -12,10 +12,12 @@ class CustomTableViewCell: UITableViewCell {
     static let identifier = "CustomTableViewCell"
     
     var customCellModel: CustomCellModel?
+    
     private var name = UILabel()
     private var nameOffer = UILabel()
     private var date = UILabel()
     private var local = UILabel()
+    private var city = UILabel()
     
     // MARK: - Init & Overrides
     
@@ -39,6 +41,9 @@ class CustomTableViewCell: UITableViewCell {
     // MARK: - Configured Views
     
     func configuredViews() {
+         
+        let color = setRead(state: customCellModel?.state ?? "")
+        
         name.textColor = Constants.colorFontCustomCell
         name.font = UIFont(name: "Rubik",
                            size: 14)
@@ -47,38 +52,34 @@ class CustomTableViewCell: UITableViewCell {
         nameOffer.textColor = Constants.colorFontCustomCell
         nameOffer.font = Constants.fontCustomCell
         nameOffer.text = customCellModel?.nameOffer
+        nameOffer.attributedText = Constants.textWithIcon(imageName: "person.fill", text: customCellModel?.nameOffer ?? "", width: 13, height: 13, y: -2, color: color)
+        
         
         date.textColor = Constants.colorFontCustomCell
         date.font = Constants.fontCustomCell
-        date.text = customCellModel?.data
+        date.attributedText = Constants.textWithIcon(imageName: "person.fill", text: convertDate(with: customCellModel?.date ?? ""), width: 13, height: 13, y: -2, color: color)
+        
+        
         
         local.textColor = Constants.colorFontCustomCell
         local.font = Constants.fontCustomCell
-        local.text = customCellModel?.local
+        local.attributedText = Constants.textWithIcon(imageName: "map.fill", text: customCellModel?.local ?? "", width: 13, height: 13, y: -2, color: color)
+        
+    
+        
+        city.textColor = Constants.colorFontCustomCell
+        city.font = Constants.fontCustomCell
+        city.text = customCellModel?.city
+        
     }
     
-    // MARK: - Computed Proprieties
-    
-    private lazy var personIcon: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(systemName: "person.fill")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var localIcon: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(systemName: "map")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+ 
     // MARK: - Private Funcs & Funcs
     
     private func setupViews() {
-        let views: [UIView] = [name, nameOffer, date, local]
-        views.forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
-        views.forEach{addSubview($0)}
+        let views: [UIView] = [name, nameOffer, date, local, city]
+        views.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
+        views.forEach{ addSubview($0) }
     }
     
     private func addConstraints() {
@@ -87,13 +88,16 @@ class CustomTableViewCell: UITableViewCell {
             name.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             name.bottomAnchor.constraint(equalTo: topAnchor, constant: 30),
             
-            nameOffer.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 30),
+            nameOffer.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
             nameOffer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
-            local.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: 5),
+            local.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: 10),
             local.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
-            date.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 30),
+            city.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: 10),
+            city.leadingAnchor.constraint(equalTo: local.trailingAnchor, constant: 10),
+            
+            date.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
             date.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30)
         ])
     }
@@ -109,4 +113,30 @@ class CustomTableViewCell: UITableViewCell {
                                                                      right: 0))
     }
    
+    func convertDate(with strDate: String ) -> String {
+        
+        let strRange = strDate.prefix(10)
+        let str = String(strRange)
+        let oldDateFormatter = DateFormatter()
+        
+        oldDateFormatter.dateFormat = "yyyy-MM-dd"
+        let old = oldDateFormatter.date(from: str)
+        
+        guard let date = old else { return ""}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateFormat = "dd MMM"
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    func setRead(state: String) -> UIColor {
+       
+        if state == "read" {
+            return UIColor.gray
+        } else {
+           return UIColor.blue
+        }
+    }
 }

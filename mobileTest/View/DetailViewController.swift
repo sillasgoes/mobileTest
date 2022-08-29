@@ -10,11 +10,31 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    let detailView = DetailView()
+    var detailView: DetailView?
+    var detailViewModel: DetailViewModel = DetailViewModel()
+    
+    override func loadView() {
+        detailView = DetailView()
+        self.view = detailView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = detailView
+        detailViewModel.delegate(delegate: self)
+        detailViewModel.fetchOfferDetail()
+    }
+}
+
+extension DetailViewController: DetailViewModelDelegate {
+    func successRequest() {
+        print("Deu certo")
+        print("\(detailViewModel.offer)")
+         
+        detailView?.detailModel?.title = detailViewModel.offer[0]._embedded.request.title
+    }
+    
+    func errorRequest() {
+        print("Deu ruim")
     }
 }
 

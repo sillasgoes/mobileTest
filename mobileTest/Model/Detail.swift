@@ -65,3 +65,19 @@ struct Detail: Codable {
         }
     }
 }
+
+struct DetailModel {
+    var title: String
+    var user: String
+    var neighborhood: String
+    var city: String
+    var label1: String
+    var label2: String
+    var label3: String
+    var label4: String
+    var label5: String
+    var label6: String
+    var label7: String
+    var phone: String
+    var email: String
+}

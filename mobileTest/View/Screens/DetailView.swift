@@ -11,6 +11,8 @@ import MapKit
 
 class DetailView: UIView {
     
+    var detailModel: DetailModel?
+    
     let navBar = UIView()
     let viewMap = MKMapView()
     
@@ -256,23 +258,29 @@ class DetailView: UIView {
     
     func textOfUiLabel() {
         
+        let sizeIcon = (width: 20, height: 20)
+        let yForIcon = -5
         let iconLabel = "exclamationmark.circle"
         
-        user.attributedText = Constants.textWithIcon(imageName: "person", text: " Buffet 2")
-        neighborhood.attributedText = Constants.textWithIcon(imageName: "map", text: " Vila Leopoldina")
+        guard let detailModel = detailModel else {
+            return
+        }
+
+        user.attributedText = Constants.textWithIcon(imageName: "person", text: detailModel.user, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        neighborhood.attributedText = Constants.textWithIcon(imageName: "map", text: detailModel.neighborhood, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
         
-        city.text = "São Paulo"
-        label1.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Qual o Tipo de Evento")
-        label2.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Qual será o tipo de comida?")
-        label3.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Quantos convidados são esperados")
-        label4.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Você também precisa de um espaço")
-        label5.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Quando será o evento (opcional)")
-        label6.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Como você será contactado?" )
-        label7.attributedText = Constants.textWithIcon(imageName: iconLabel, text: " Informações Adicionais")
+        city.text = detailModel.city
+        label1.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label1, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        label2.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label2, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        label3.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label3, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        label4.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label4, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        label5.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label5, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        label6.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label6 , width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        label7.attributedText = Constants.textWithIcon(imageName: iconLabel, text: detailModel.label7, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
         
         clientInfo.text = "Contato do cliente"
-        phone.attributedText = Constants.textWithIcon(imageName: "phone", text: " (11) 99432-2234")
-        email.attributedText = Constants.textWithIcon(imageName: "envelope", text: " emaiu@getNinjas.com.br")
+        phone.attributedText = Constants.textWithIcon(imageName: "phone", text: detailModel.phone, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
+        email.attributedText = Constants.textWithIcon(imageName: "envelope", text: detailModel.email, width: sizeIcon.width, height: sizeIcon.height, y: yForIcon)
         alert.text = "Fale com o cliente o quanto antes"
     }
  

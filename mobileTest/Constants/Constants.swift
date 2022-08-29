@@ -13,7 +13,7 @@ public struct Constants {
     static let colorDefault = UIColor(named: "BlueDefault")
     static let colorBackgroud = UIColor(named: "BlueBackground")
     
-    static let fontCustomCell = UIFont(name: "Rubik", size: 10)
+    static let fontCustomCell = UIFont(name: "Rubik", size: 13)
     static let colorFontCustomCell = UIColor.black
     
     static let colorBorderButton = UIColor.white
@@ -32,14 +32,16 @@ public struct Constants {
         return font
     }
     
-    static func textWithIcon(imageName: String, text: String) -> NSMutableAttributedString {
+    static func textWithIcon(imageName: String, text: String, width: Int, height: Int, y: Int, color: UIColor = .black) -> NSMutableAttributedString {
         
-        let iconSize = CGRect(x: 0, y: -5, width: 20, height: 20)
-        let image = UIImage(systemName: imageName)
+        let iconSize = CGRect(x: 0, y: y, width: width, height: width)
+        let image = UIImage(systemName: imageName)?.withTintColor(color)
         
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image
         imageAttachment.bounds = iconSize
+        
+        
         
         let attachmentString = NSAttributedString(attachment: imageAttachment)
         let completeText = NSMutableAttributedString(string: "")
