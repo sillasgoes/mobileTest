@@ -62,15 +62,30 @@ class CustomTableViewCell: UITableViewCell {
         nameOffer.textColor = Constants.colorFontCustomCell
         nameOffer.font = Constants.fontCustomCell
         nameOffer.text = customCellModel?.nameOffer
-        nameOffer.attributedText = Constants.textWithIcon(imageName: "person.fill", text: customCellModel?.nameOffer ?? "", width: 13, height: 13, y: -2, color: color)
+        nameOffer.attributedText = Constants.textWithIcon(imageName: "person.fill",
+                                                          text: customCellModel?.nameOffer ?? "",
+                                                          width: 13,
+                                                          height: 13,
+                                                          y: -2,
+                                                          color: color)
         
         date.textColor = Constants.colorFontCustomCell
         date.font = Constants.fontCustomCell
-        date.attributedText = Constants.textWithIcon(imageName: "person.fill", text: convertDate(with: customCellModel?.date ?? ""), width: 13, height: 13, y: -2, color: color)
+        date.attributedText = Constants.textWithIcon(imageName: "person.fill",
+                                                     text: convertDate(with: customCellModel?.date ?? ""),
+                                                     width: 13,
+                                                     height: 13,
+                                                     y: -2,
+                                                     color: color)
         
         local.textColor = Constants.colorFontCustomCell
         local.font = Constants.fontCustomCell
-        local.attributedText = Constants.textWithIcon(imageName: "map.fill", text: customCellModel?.local ?? "", width: 13, height: 13, y: -2, color: color)
+        local.attributedText = Constants.textWithIcon(imageName: "map.fill",
+                                                      text: customCellModel?.local ?? "",
+                                                      width: 13,
+                                                      height: 13,
+                                                      y: -2,
+                                                      color: color)
         
         city.textColor = Constants.colorFontCustomCell
         city.font = Constants.fontCustomCell
@@ -92,21 +107,21 @@ class CustomTableViewCell: UITableViewCell {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            name.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            name.bottomAnchor.constraint(equalTo: topAnchor, constant: 30),
+            name.topAnchor.constraint(equalTo: topAnchor, constant: frame.width / 100 * 2),
+            name.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width / 100 * 10),
+            name.bottomAnchor.constraint(equalTo: topAnchor, constant: frame.width / 100 * 10),
             
-            nameOffer.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
-            nameOffer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            nameOffer.topAnchor.constraint(equalTo: name.bottomAnchor, constant: frame.width / 100 * 5),
+            nameOffer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width / 100 * 10),
             
-            local.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: 10),
-            local.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            local.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: frame.width / 100 * 2),
+            local.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width / 100 * 10),
             
-            city.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: 10),
-            city.leadingAnchor.constraint(equalTo: local.trailingAnchor, constant: 10),
+            city.topAnchor.constraint(equalTo: nameOffer.bottomAnchor, constant: frame.width / 100 * 2),
+            city.leadingAnchor.constraint(equalTo: local.trailingAnchor, constant: frame.width / 100 * 10),
             
-            date.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
-            date.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            date.topAnchor.constraint(equalTo: name.bottomAnchor, constant: frame.width / 100 * 5),
+            date.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -(frame.width / 100 * 10)),
             
             button.widthAnchor.constraint(equalTo: widthAnchor),
             button.heightAnchor.constraint(equalTo: heightAnchor),
