@@ -9,7 +9,7 @@ Foi utilizando neste projeto:
 * Viewcode
 * Autolayout
 * CleanCode
-* URLSession para consumod de api  
+* URLSession para consumo de api  
 
 Próximas autalizações 
 
