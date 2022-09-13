@@ -9,10 +9,13 @@ Foi utilizando neste projeto:
 * Viewcode
 * Autolayout
 * CleanCode
-* URLSession para consumo de api  
+* Alamofire 
 
-Próximas autalizações 
+Últimas atualizações: 
+* AutoLayout em todo projeto 
+* Aplicação de CleanCode
+* Adicionado Alamofire para chamadas Https
 
+Próximas atualizações 
 * Injecão de dependência 
 * Testes 
-* Alamofire 
