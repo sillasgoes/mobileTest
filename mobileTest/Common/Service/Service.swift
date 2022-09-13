@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 // MARK: - Protocol
 protocol GenericService: AnyObject {
@@ -25,50 +26,32 @@ enum ErrorURL: Error {
 class Service: ServiceDelegate {
     
     func getLinksFromApi(completion: @escaping completion<Link?>) {
-        guard let url = URL(string: Constants.entryPoint) else {
-            return completion(nil, ErrorURL.urlNotFound)
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            
-            if error == nil {
-                guard let data = data else {
-                    return
+        AF.request(Constants.entryPoint)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Link.self) { response in
+                guard let response = response.value else {
+                    return completion(nil, ErrorURL.urlNotFound)
                 }
-                do {
-                    let data = try JSONDecoder().decode(Link.self, from: data)
-                    completion(data, nil)
-                } catch {
-                    completion(nil, ErrorURL.urlNotFound)
-                }
+                completion(response, nil)
+                print("Os dados chegaram: \(response)")
             }
-        }
-        task.resume()
     }
     
     func getOfferFromApi(completion: @escaping completion<Offers?>) {
-        
         getLinksFromApi { result, failure in
             
             guard let url = URL(string: result?.links.offers.href ?? "" ) else  {
                 return
             }
             
-            let task = URLSession.shared.dataTask(with: url) { data, _, error in
-                
-                if error == nil {
-                    guard let data = data else {
-                        return
+            AF.request(url)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: Offers.self) { response in
+                    guard let response = response.value else {
+                        return completion(nil, ErrorURL.urlNotFound)
                     }
-                    do {
-                        let data = try JSONDecoder().decode(Offers.self, from: data)
-                        completion(data, nil)
-                    } catch {
-                        completion(nil, ErrorURL.urlNotFound)
-                    }
+                    completion(response, nil)
                 }
-            }
-            task.resume()
         }
     }
     
@@ -79,45 +62,30 @@ class Service: ServiceDelegate {
                 return
             }
             
-            let task = URLSession.shared.dataTask(with: url) { data, _, error in
-                if error == nil {
-                    guard let data = data else {
-                        return
+            AF.request(url)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: Leads.self) { response in
+                    guard let response = response.value else {
+                        return completion(nil, ErrorURL.urlNotFound)
                     }
-                    do {
-                        let data = try JSONDecoder().decode(Leads.self, from: data)
-                        completion(data, nil)
-                    } catch {
-                        completion(nil, ErrorURL.urlNotFound)
-                    }
+                    completion(response, nil)
                 }
-            }
-            task.resume()
         }
     }
     
     func getDetailFromApi(url: URL?, completion: @escaping completion<Detail?>) {
-        
         getLinksFromApi { result, failure in
             
             guard let url = url else { return }
             
-            let task = URLSession.shared.dataTask(with: url) { data, _, error in
-                if error == nil {
-                    guard let data = data else {
-                        return
+            AF.request(url)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: Detail.self) { response in
+                    guard let response = response.value else {
+                        return completion(nil, ErrorURL.urlNotFound)
                     }
-                    do {
-                        let data = try JSONDecoder().decode(Detail.self, from: data)
-                        print("Os Dados \(data)")
-                        completion(data, nil)
-                    } catch let error {
-                        print("Erro da requisição \(error)")
-                        completion(nil, error)
-                    }
+                    completion(response, nil)
                 }
-            }
-            task.resume()
         }
     }
 }
