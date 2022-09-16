@@ -10,23 +10,22 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let backView = UIView()
-    let navBarView = UIView()
-    let stackViewButtons = UIStackView()
-    let labelRequest = UILabel()
-    let lineViewButtonAvailable = UIView()
-    let lineViewButtonAccept = UIView()
-    let buttonAvailable = UIButton()
-    let buttonAccept = UIButton()
-    let tableView = UITableView()
-    
+    private let backView = UIView()
+    private let navBarView = UIView()
+    private let stackViewButtons = UIStackView()
+    private let labelRequest = UILabel()
+    private let lineViewButtonAvailable = UIView()
+    private let lineViewButtonAccept = UIView()
+    private let buttonAvailable = UIButton()
+    private let buttonAccept = UIButton()
+    private let tableView = UITableView()
     
     // MARK: - Properties
     
-    let homeViewModel = HomeViewModel()
-    let customCell = CustomTableViewCell()
-    var type: typeOfRequest? = .Offer
-    var link: Link?
+    private let viewModel = HomeViewModel()
+    private let customCell = CustomTableViewCell()
+    private var type: typeOfRequest? = .Offer
+    private var link: Link?
     
     // MARK: - Variables
     
@@ -37,16 +36,16 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeViewModel.delegate(delegate: self)
+        viewModel.delegate(delegate: self)
         startViews()
-        homeViewModel.fetchOffer()
-        homeViewModel.fetchLeads()
+        viewModel.fetchOffer()
+        viewModel.fetchLeads()
         setRefreshTable()
     }
     
     // MARK: - Funcs and @objc Funcs
     
-    func setRefreshTable() {
+    private func setRefreshTable() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(didPullRefresh), for: .valueChanged)
     }
@@ -71,11 +70,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                                                  for: indexPath) as! CustomTableViewCell
         
         if type == .Offer {
-            cell.customCellModel = CustomCellViewModel().setupDataForCell(data: homeViewModel.offers[indexPath.row])
+            cell.customCellModel = CustomCellViewModel().setupDataForCell(data: viewModel.offers[indexPath.row])
         }
         
         if type == .Lead {
-            cell.customCellModel = CustomCellViewModel().setupDataForCell(data: homeViewModel.leads[indexPath.row])
+            cell.customCellModel = CustomCellViewModel().setupDataForCell(data: viewModel.leads[indexPath.row])
         }
         
         cell.delegate = self
@@ -85,7 +84,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeViewModel.offers.count
+        return viewModel.offers.count
     }
 }
 
@@ -94,13 +93,13 @@ extension HomeViewController: HomeViewModelDelegate, CustomTableViewCellProtocol
     func didTapButton(type: typeOfRequest) {
         if type == .Offer {
             self.type = .Offer
-            homeViewModel.fetchOffer()
+            viewModel.fetchOffer()
             reloadData()
         }
         
         if type == .Lead {
             self.type = .Lead
-            homeViewModel.fetchLeads()
+            viewModel.fetchLeads()
             reloadData()
         }
     }
@@ -135,13 +134,13 @@ extension HomeViewController {
     
     // MARK: - Configure Views
     
-    func startViews() {
+    private func startViews() {
         setupView()
         addConstraints()
         configureViews()
     }
     
-    func configureViews() {
+    private func configureViews() {
         
         backView.translatesAutoresizingMaskIntoConstraints = false
         backView.backgroundColor = Constants.colorBackgroud
@@ -256,7 +255,7 @@ extension HomeViewController {
         }
     }
     
-    func addBottomBorderWithColor(view: UIView, color: UIColor, width: CGFloat) {
+    private func addBottomBorderWithColor(view: UIView, color: UIColor, width: CGFloat) {
         let border = UIView(frame: view.frame)
         border.backgroundColor = UIColor.white
         border.frame = CGRect(x: 0,
@@ -267,7 +266,7 @@ extension HomeViewController {
         view.addSubview(border)
     }
     
-    func changeColorOfLineButton(type: typeOfRequest) {
+    private func changeColorOfLineButton(type: typeOfRequest) {
         if type == .Offer {
             DispatchQueue.main.async {
                 self.lineViewButtonAvailable.backgroundColor = .white

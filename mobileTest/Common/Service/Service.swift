@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 
 // MARK: - Protocol
+
 protocol GenericService: AnyObject {
     typealias completion<T> = (_ result: T, _ failure: Error?) -> Void
 }
@@ -16,6 +17,7 @@ protocol GenericService: AnyObject {
 protocol ServiceDelegate: GenericService {
     func getLinksFromApi(completion: @escaping completion<Link?>)
 }
+
 // MARK: - Enum
 
 enum ErrorURL: Error {
@@ -69,7 +71,7 @@ class Service: ServiceDelegate {
                         return completion(nil, ErrorURL.urlNotFound)
                     }
                     completion(response, nil)
-                }
+            }
         }
     }
     
@@ -85,7 +87,7 @@ class Service: ServiceDelegate {
                         return completion(nil, ErrorURL.urlNotFound)
                     }
                     completion(response, nil)
-                }
+            }
         }
     }
 }

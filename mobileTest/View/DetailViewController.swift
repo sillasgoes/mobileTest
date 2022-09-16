@@ -12,49 +12,49 @@ import MapKit
 class DetailViewController: UIViewController {
     
     // MARK: - Properties
-    let viewMap = MKMapView()
+    private let viewMap = MKMapView()
     
-    let navBar = UIView()
-    let backView = UIView()
-    let line = UIView()
-    let viewForClientInfo = UIView()
+    private let navBar = UIView()
+    private let backView = UIView()
+    private let line = UIView()
+    private let viewForClientInfo = UIView()
     
-    let detailTitle = UILabel()
-    let user = UILabel()
-    let neighborhood = UILabel()
-    let city = UILabel()
-    let distance = UILabel()
-    let label1 = UILabel()
-    let label2 = UILabel()
-    let label3 = UILabel()
-    let label4 = UILabel()
-    let label5 = UILabel()
-    let label6 = UILabel()
-    let label7 = UILabel()
-    let label8 = UILabel()
+    private let detailTitle = UILabel()
+    private let user = UILabel()
+    private let neighborhood = UILabel()
+    private let city = UILabel()
+    private let distance = UILabel()
+    private let label1 = UILabel()
+    private let label2 = UILabel()
+    private let label3 = UILabel()
+    private let label4 = UILabel()
+    private let label5 = UILabel()
+    private let label6 = UILabel()
+    private let label7 = UILabel()
+    private let label8 = UILabel()
     
-    let value1 = UILabel()
-    let value2 = UILabel()
-    let value3 = UILabel()
-    let value4 = UILabel()
-    let value5 = UILabel()
-    let value6 = UILabel()
-    let value7 = UILabel()
+    private let value1 = UILabel()
+    private let value2 = UILabel()
+    private let value3 = UILabel()
+    private let value4 = UILabel()
+    private let value5 = UILabel()
+    private let value6 = UILabel()
+    private let value7 = UILabel()
     
-    let clientInfo = UILabel()
-    let phone = UILabel()
-    let email = UILabel()
-    let info = UILabel()
-    let alert = UILabel()
+    private let clientInfo = UILabel()
+    private let phone = UILabel()
+    private let email = UILabel()
+    private let info = UILabel()
+    private let alert = UILabel()
     
-    let scrollView = UIScrollView()
-    let stackView = UIStackView()
-    let stackViewForLead = UIStackView()
+    private let scrollView = UIScrollView()
+    private let stackView = UIStackView()
+    private let stackViewForLead = UIStackView()
     
-    let callButton = UIButton()
-    let whatsButton = UIButton()
-    let refusedButton = UIButton()
-    let acceptButton = UIButton()
+    private let callButton = UIButton()
+    private let whatsButton = UIButton()
+    private let refusedButton = UIButton()
+    private let acceptButton = UIButton()
     
     var detailViewModel: DetailViewModel = DetailViewModel()
     var url: URL?
@@ -74,72 +74,72 @@ class DetailViewController: UIViewController {
     
     // MARK: - Funcs
     
-    func textOfUiLabel() {
+    private func textOfUiLabel() {
         let sizeIcon = (width: 20, height: 20)
         let yForIcon = -5
         let iconLabel = "exclamationmark.circle"
         
-        guard let detailModel = detailViewModel.detail else {
+        guard let model = detailViewModel.detail else {
             return
         }
         
         let toDo = ""
         DispatchQueue.main.async {
-            self.detailTitle.text = detailModel.title
+            self.detailTitle.text = model.title
             self.user.attributedText = Constants.textWithIcon(imageName: "person",
-                                                              text: detailModel.user,
+                                                              text: model.user,
                                                               width: sizeIcon.width,
                                                               height: sizeIcon.height,
                                                               y: yForIcon)
             
             self.neighborhood.attributedText = Constants.textWithIcon(imageName: "map",
-                                                                      text: detailModel.neighborhood,
+                                                                      text: model.neighborhood,
                                                                       width: sizeIcon.width,
                                                                       height: sizeIcon.height,
                                                                       y: yForIcon)
             
-            self.city.text = detailModel.city
+            self.city.text = model.city
             self.label1.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label1,
+                                                                text: model.label1,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon,
                                                                 color: self.color)
             
             self.label2.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label2,
+                                                                text: model.label2,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon,
                                                                 color: self.color)
             
             self.label3.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label3,
+                                                                text: model.label3,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon,
                                                                 color: self.color)
             
             self.label4.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label4,
+                                                                text: model.label4,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon,
                                                                 color: self.color)
             self.label5.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label5,
+                                                                text: model.label5,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon,
                                                                 color: self.color)
             self.label6.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label6,
+                                                                text: model.label6,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon, color:
                                                                     self.color)
             self.label7.attributedText = Constants.textWithIcon(imageName: iconLabel,
-                                                                text: detailModel.label7,
+                                                                text: model.label7,
                                                                 width: sizeIcon.width,
                                                                 height: sizeIcon.height,
                                                                 y: yForIcon,
@@ -153,21 +153,21 @@ class DetailViewController: UIViewController {
             self.value7.text = toDo
             self.clientInfo.text = "Contato do cliente"
             self.phone.attributedText = Constants.textWithIcon(imageName: "phone",
-                                                               text: detailModel.phone,
+                                                               text: model.phone,
                                                                width: sizeIcon.width,
                                                                height: sizeIcon.height,
                                                                y: yForIcon,
                                                                color: self.color)
             self.email.attributedText = Constants.textWithIcon(imageName: "envelope",
-                                                               text: detailModel.email,
+                                                               text: model.email,
                                                                width: sizeIcon.width,
                                                                height: sizeIcon.height,
                                                                y: yForIcon,
                                                                color: self.color)
             self.alert.text = "Fale com o cliente o quanto antes"
             
-            let initialLocaltion = CLLocation(latitude: detailModel.latitude,
-                                              longitude: detailModel.longitude)
+            let initialLocaltion = CLLocation(latitude: model.latitude,
+                                              longitude: model.longitude)
             self.viewMap.centerToLocation(initialLocaltion, regionRadius: 1000)
             let region = MKCoordinateRegion(
                 center: initialLocaltion.coordinate,
@@ -205,13 +205,13 @@ extension DetailViewController: DetailViewModelDelegate {
 extension DetailViewController {
     
     // MARK: - Configured Views
-    func startViews() {
+    private func startViews() {
         setupViews()
         configuredLayoutViews()
         addConstraints()
     }
     
-    func setupViews() {
+    private func setupViews() {
         let views = [ navBar, scrollView, stackView, line]
         let viewsTable = [ detailTitle,
                            user,
@@ -258,7 +258,7 @@ extension DetailViewController {
         viewsInfo.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
     }
     
-    func configuredLayoutViews() {
+    private func configuredLayoutViews() {
         navBar.backgroundColor = Constants.colorBackgroud
         
         scrollView.backgroundColor = .white
@@ -314,8 +314,7 @@ extension DetailViewController {
         
     }
     
-    func addConstraints(){
-        
+    private func addConstraints(){
         let distanceOfLabel: CGFloat = view.frame.height / 100 * 5
         let leadingForStack: CGFloat = view.frame.width / 100 * 6
         let distanceUp: CGFloat = view.frame.height / 100 * 3
@@ -325,8 +324,7 @@ extension DetailViewController {
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
             navBar.widthAnchor.constraint(equalTo: view.widthAnchor),
             navBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
-            
-            //10
+                        
             scrollView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: view.frame.height / 100 * 3),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width / 100 * 3),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(view.frame.width / 100 * 3)),
@@ -438,7 +436,7 @@ extension DetailViewController {
         ])
     }
     
-    func setupLayoutForOffer(){
+    private func setupLayoutForOffer(){
         view.addSubview(stackViewForLead)
         
         stackViewForLead.addArrangedSubview(refusedButton)

@@ -98,7 +98,7 @@ class CustomTableViewCell: UITableViewCell {
     @objc func buttonFunction(){
         delegate?.didTapButton(link: customCellModel?.link ?? "")
     }
-
+    
     private func setupViews() {
         let views: [UIView] = [name, nameOffer, date, local, city, button]
         views.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -139,7 +139,7 @@ class CustomTableViewCell: UITableViewCell {
                                                                      right: 0))
     }
     
-    func convertDate(with strDate: String ) -> String {
+    private func convertDate(with strDate: String ) -> String {
         
         let strRange = strDate.prefix(10)
         let str = String(strRange)
@@ -157,7 +157,7 @@ class CustomTableViewCell: UITableViewCell {
         return dateFormatter.string(from: date)
     }
     
-    func setRead(state: String) -> UIColor {
+    private func setRead(state: String) -> UIColor {
         
         if state == "read" {
             return UIColor.gray
