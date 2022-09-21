@@ -16,6 +16,9 @@ protocol GenericService: AnyObject {
 
 protocol ServiceDelegate: GenericService {
     func getLinksFromApi(completion: @escaping completion<Link?>)
+    func getOfferFromApi(completion: @escaping completion<Offers?>)
+    func getLeadsFromApi(completion: @escaping completion<Leads?>)
+    func getDetailFromApi(url: URL?, completion: @escaping completion<Detail?>)
 }
 
 // MARK: - Enum

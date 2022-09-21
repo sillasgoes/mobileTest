@@ -26,7 +26,11 @@ class HomeViewModel {
     var offers : [Offer] = []
     var leads : [Lead] = []
     
-    private let service: Service = Service()
+    var service: ServiceDelegate? = Service()
+    
+    init(service: ServiceDelegate = Service()) {
+        self.service = service
+    }
     
     // MARK: - Delegate
     
@@ -39,7 +43,7 @@ class HomeViewModel {
     // MARK: - Funcs
     
     public func fetchOffer() {
-        service.getOfferFromApi { success, error in
+        service?.getOfferFromApi { success, error in
             
             if let _success = success {
                 self.offers = _success.offers
@@ -51,7 +55,7 @@ class HomeViewModel {
     }
     
     public func fetchLeads() {
-        service.getLeadsFromApi { success, error in
+        service?.getLeadsFromApi { success, error in
             
             if let _success = success {
                 self.leads = _success.leads
