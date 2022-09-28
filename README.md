@@ -10,12 +10,13 @@ Foi utilizando neste projeto:
 * Autolayout
 * CleanCode
 * Alamofire 
+* Injecão de dependência 
 
 Últimas atualizações: 
 * AutoLayout em todo projeto 
 * Aplicação de CleanCode
 * Adicionado Alamofire para chamadas Https
+* Injecão de dependência 
 
 Próximas atualizações 
-* Injecão de dependência 
 * Testes 
